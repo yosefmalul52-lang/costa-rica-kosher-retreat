@@ -7,6 +7,7 @@ import {
 } from "../data";
 import OptimizedImage from "./OptimizedImage";
 import { Inquiry } from "../types";
+import { useLanguage } from "../context/LanguageContext";
 import { 
   Calendar, 
   Users, 
@@ -28,6 +29,7 @@ interface RetreatBuilderProps {
 }
 
 export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, clearPreSelectedRoom }: RetreatBuilderProps) {
+  const { t } = useLanguage();
   // Form State
   const [fullName, setFullName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -108,9 +110,11 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
     e.preventDefault();
 
     if (!fullName || !email || !phone) {
-      alert("Please fill in your name, email, and phone number to request availability.");
+      alert(t.planner.validationAlert);
       return;
     }
+
+    const roomCopy = t.rooms.items[selectedRoomId as keyof typeof t.rooms.items];
 
     const newInquiry: Inquiry = {
       id: "SAN-" + Math.floor(100000 + Math.random() * 900000),
@@ -119,9 +123,9 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
       phone,
       dates,
       partySize: Number(partySize),
-      roomType: selectedRoom.name,
-      activities: selectedActivities.map(id => ACTIVITY_OPTIONS.find(a => a.id === id)?.name || id),
-      kashrutTier: KASHRUT_TIERS.find(k => k.id === selectedKashrut)?.name || selectedKashrut,
+      roomType: roomCopy.name,
+      activities: selectedActivities.map(id => t.planner.activities[id as keyof typeof t.planner.activities]?.name || id),
+      kashrutTier: t.planner.kashrutTiers[selectedKashrut as keyof typeof t.planner.kashrutTiers]?.name || selectedKashrut,
       specialRequests: `${specialRequests}. Reserve Minyan seats: ${reserveMinyanSeats ? 'Yes' : 'No'}. Communal Shabbat meals for ${communalMealsCount} adults. Kids count: ${kidsCount}.`,
       totalEstimatedPrice,
       status: 'Pending',
@@ -147,10 +151,10 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
     <div className="py-24 max-w-container-max mx-auto px-4 md:px-margin-desktop bg-surface select-text">
       {/* Header */}
       <div className="text-center mb-16 max-w-2xl mx-auto">
-        <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest font-semibold">Sanctuary Planner</span>
-        <h1 className="font-headline-lg text-headline-lg text-primary mb-4">Personalize your luxury retreat.</h1>
+        <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest font-semibold">{t.planner.eyebrow}</span>
+        <h1 className="font-headline-lg text-headline-lg text-primary mb-4">{t.planner.title}</h1>
         <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-          Configure dates, kosher parameters, excursions, and family programs to generate a real-time price quotation and submit your inquiry to our boutique advisory desk.
+          {t.planner.subtitle}
         </p>
       </div>
 
@@ -161,30 +165,30 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
           {/* Step 1: Contact Details */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-6 flex items-center gap-3">
-              <span className="text-secondary">01</span> Guest Details
+              <span className="text-secondary">01</span> {t.planner.steps.guestDetails}
             </h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">FULL NAME</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.fullName}</label>
                 <input 
                   type="text" 
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="E.g., Johnathan Goldstein" 
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  placeholder={t.planner.placeholders.fullName} 
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary text-start"
                   required
                 />
               </div>
               
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">EMAIL ADDRESS</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.email}</label>
                 <input 
                   type="email" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="goldstein@example.com" 
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  placeholder={t.planner.placeholders.email} 
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary input-ltr"
                   required
                 />
               </div>
@@ -192,31 +196,31 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2 md:col-span-1">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">PHONE NUMBER</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.phone}</label>
                 <input 
                   type="tel" 
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+1 (555) 300-4000" 
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  placeholder={t.planner.placeholders.phone} 
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary input-ltr"
                   required
                 />
               </div>
 
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2 md:col-span-1">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">PREFERRED SEASON / MONTH</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.season}</label>
                 <input 
                   type="text" 
                   value={dates}
                   onChange={(e) => setDates(e.target.value)}
-                  placeholder="December 2026 / Chanukah" 
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  placeholder={t.planner.placeholders.season} 
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary text-start"
                   required
                 />
               </div>
 
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2 md:col-span-1">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">NUMBER OF NIGHTS</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.nights}</label>
                 <input 
                   type="number" 
                   value={nights}
@@ -231,45 +235,45 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
 
             <div className="grid grid-cols-2 gap-8 mt-8">
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">ADULT GUESTS (13+)</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.adults}</label>
                 <select 
                   value={partySize} 
                   onChange={(e) => setPartySize(Number(e.target.value))}
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary text-start"
                 >
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(v => (
-                    <option key={v} value={v} className="bg-surface text-primary">{v} Adults</option>
+                    <option key={v} value={v} className="bg-surface text-primary">{v} {t.planner.adultsOption}</option>
                   ))}
                 </select>
               </div>
 
               <div className="border-b border-outline focus-within:border-secondary transition-colors py-2">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">CHILDREN (0-12)</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block mb-1">{t.planner.labels.children}</label>
                 <select 
                   value={kidsCount} 
                   onChange={(e) => setKidsCount(Number(e.target.value))}
-                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary"
+                  className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary text-start"
                 >
                   {[0, 1, 2, 3, 4, 5, 6, 7, 8].map(v => (
-                    <option key={v} value={v} className="bg-surface text-primary">{v} Children</option>
+                    <option key={v} value={v} className="bg-surface text-primary">{v} {t.planner.childrenOption}</option>
                   ))}
                 </select>
               </div>
             </div>
           </div>
 
-          {/* Step 2: Accommodation Selection */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-2 flex items-center gap-3">
-              <span className="text-secondary">02</span> Select Accommodation
+              <span className="text-secondary">02</span> {t.planner.steps.accommodation}
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-6 leading-relaxed">
-              Choose the architectural space that best fits your group. Dual sinks, separate bedroom layouts, and Sabbath-compliant parameters are fully integrated.
+              {t.planner.accommodationHint}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {ROOM_OPTIONS.map((room) => {
                 const isSelected = selectedRoomId === room.id;
+                const copy = t.rooms.items[room.id as keyof typeof t.rooms.items];
                 return (
                   <div 
                     key={room.id}
@@ -282,27 +286,27 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                   >
                     <div>
                       <div className="h-44 overflow-hidden relative">
-                        <OptimizedImage src={room.imageUrl} alt={room.name} className="w-full h-full object-cover" />
+                        <OptimizedImage src={room.imageUrl} alt={copy.name} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
                         {isSelected && (
-                          <div className="absolute top-3 right-3 bg-secondary text-on-secondary w-7 h-7 flex items-center justify-center rounded-full shadow">
+                          <div className="absolute top-3 end-3 bg-secondary text-on-secondary w-7 h-7 flex items-center justify-center rounded-full shadow">
                             <Check className="w-4 h-4" />
                           </div>
                         )}
                       </div>
                       
                       <div className="p-6">
-                        <span className="font-label-caps text-[10px] text-secondary tracking-widest block mb-1">{room.category}</span>
-                        <h4 className="font-headline-sm text-lg text-primary mb-2">{room.name}</h4>
+                        <span className="font-label-caps text-[10px] text-secondary tracking-widest block mb-1">{copy.category}</span>
+                        <h4 className="font-headline-sm text-lg text-primary mb-2">{copy.name}</h4>
                         <p className="text-xs text-on-surface-variant leading-relaxed h-16 overflow-hidden">
-                          {room.description}
+                          {copy.description}
                         </p>
                       </div>
                     </div>
 
                     <div className="px-6 py-4 border-t border-surface-container-high flex justify-between items-center bg-surface-container-low">
-                      <span className="font-label-caps text-xs text-secondary uppercase font-semibold">RATE</span>
-                      <span className="font-headline-sm text-base text-primary">${room.pricePerNight} / Night</span>
+                      <span className="font-label-caps text-xs text-secondary uppercase font-semibold">{t.planner.labels.rate}</span>
+                      <span className="font-headline-sm text-base text-primary">${room.pricePerNight}{t.planner.labels.perNight}</span>
                     </div>
                   </div>
                 );
@@ -310,20 +314,20 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
             </div>
           </div>
 
-          {/* Step 3: Kashrut & Jewish Life */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-2 flex items-center gap-3">
-              <span className="text-secondary">03</span> Kashrut & Jewish Life
+              <span className="text-secondary">03</span> {t.planner.steps.kashrut}
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-6 leading-relaxed">
-              Our culinary program is 100% strict Glatt Kosher, Pas Yisrael, and Chalav Yisrael. You may choose specialized kashrut parameters below.
+              {t.planner.kashrutHint}
             </p>
 
             <div className="space-y-4 mb-8">
-              <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">SUPERVISION STANDARDS</label>
+              <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">{t.planner.labels.supervision}</label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {KASHRUT_TIERS.map((tier) => {
                   const isSelected = selectedKashrut === tier.id;
+                  const copy = t.planner.kashrutTiers[tier.id as keyof typeof t.planner.kashrutTiers];
                   return (
                     <div
                       key={tier.id}
@@ -335,8 +339,8 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                       }`}
                     >
                       <ChefHat className={`w-6 h-6 mx-auto mb-3 ${isSelected ? "text-secondary" : "text-on-surface-variant"}`} />
-                      <h5 className="font-headline-sm text-sm text-primary mb-1.5">{tier.name}</h5>
-                      <p className="text-[10px] text-on-surface-variant leading-relaxed">{tier.description}</p>
+                      <h5 className="font-headline-sm text-sm text-primary mb-1.5">{copy.name}</h5>
+                      <p className="text-[10px] text-on-surface-variant leading-relaxed">{copy.description}</p>
                     </div>
                   );
                 })}
@@ -344,9 +348,8 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
             </div>
 
             <div className="border-t border-surface-container-high pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Daily Minyan checkbox */}
               <div className="space-y-3">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">DAILY SERVICES</label>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">{t.planner.labels.dailyServices}</label>
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <input 
                     type="checkbox" 
@@ -356,49 +359,48 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                   />
                   <div className="-mt-0.5">
                     <span className="text-sm font-body-md text-primary font-semibold block group-hover:text-secondary transition-colors">
-                      Reserve seats in Synagogue
+                      {t.planner.minyanLabel}
                     </span>
                     <span className="text-xs text-on-surface-variant leading-relaxed block">
-                      Secure seat spacing in the Shul for Shacharit, Mincha, and Maariv services. Includes Siddurim & Chumashim availability.
+                      {t.planner.minyanHint}
                     </span>
                   </div>
                 </label>
               </div>
 
-              {/* Communal Shabbat meals selection */}
               <div className="space-y-3">
-                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">COMMUNAL SHABBAT DINING</label>
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-body-md text-primary font-semibold">Communal seat allocations:</span>
+                <label className="font-label-caps text-label-caps text-xs text-secondary tracking-widest block">{t.planner.labels.shabbatDining}</label>
+                <div className="flex items-center gap-4 flex-wrap">
+                  <span className="text-sm font-body-md text-primary font-semibold">{t.planner.labels.communalSeats}</span>
                   <select
                     value={communalMealsCount}
                     onChange={(e) => setCommunalMealsCount(Number(e.target.value))}
-                    className="border border-surface-container-high bg-surface rounded-sm px-3 py-1 text-sm font-body-md text-primary"
+                    className="border border-surface-container-high bg-surface rounded-sm px-3 py-1 text-sm font-body-md text-primary text-start"
                   >
                     {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(v => (
-                      <option key={v} value={v}>{v} Guests</option>
+                      <option key={v} value={v}>{v} {t.planner.guestsOption}</option>
                     ))}
                   </select>
                 </div>
                 <span className="text-xs text-on-surface-variant leading-relaxed block">
-                  Reserve a private table at our spectacular Shabbat communal feast with silver kiddush cups and warm braided challah.
+                  {t.planner.shabbatHint}
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Step 4: Excursions & Adventures */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-2 flex items-center gap-3">
-              <span className="text-secondary">04</span> Excursions & Adventures
+              <span className="text-secondary">04</span> {t.planner.steps.excursions}
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-6 leading-relaxed">
-              Customize your escape with private nature treks or adrenaline zipline runs. Every excursion is timed around minyan constraints and kashrut limits.
+              {t.planner.excursionsHint}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {ACTIVITY_OPTIONS.map((act) => {
                 const isSelected = selectedActivities.includes(act.id);
+                const copy = t.planner.activities[act.id as keyof typeof t.planner.activities];
                 return (
                   <div
                     key={act.id}
@@ -411,29 +413,29 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                   >
                     <div>
                       <div className="h-32 relative">
-                        <OptimizedImage src={act.imageUrl} alt={act.name} className="w-full h-full object-cover" />
+                        <OptimizedImage src={act.imageUrl} alt={copy.name} className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                        <span className="absolute top-2 left-2 bg-secondary text-on-secondary font-label-caps text-[9px] px-2 py-0.5 uppercase tracking-wider rounded-sm">
-                          {act.category}
+                        <span className="absolute top-2 start-2 bg-secondary text-on-secondary font-label-caps text-[9px] px-2 py-0.5 uppercase tracking-wider rounded-sm">
+                          {copy.category}
                         </span>
                         {isSelected && (
-                          <div className="absolute top-2 right-2 bg-secondary text-on-secondary w-6 h-6 flex items-center justify-center rounded-full shadow">
+                          <div className="absolute top-2 end-2 bg-secondary text-on-secondary w-6 h-6 flex items-center justify-center rounded-full shadow">
                             <Check className="w-3.5 h-3.5" />
                           </div>
                         )}
                       </div>
                       
                       <div className="p-5">
-                        <h4 className="font-headline-sm text-base text-primary mb-2">{act.name}</h4>
+                        <h4 className="font-headline-sm text-base text-primary mb-2">{copy.name}</h4>
                         <p className="text-xs text-on-surface-variant leading-relaxed">
-                          {act.description}
+                          {copy.description}
                         </p>
                       </div>
                     </div>
 
                     <div className="px-5 py-3 border-t border-surface-container-high flex justify-between items-center bg-surface-container-low text-xs font-semibold">
-                      <span className="text-on-surface-variant font-label-caps text-[10px]">{act.isPrivate ? "PRIVATE TOUR" : "COMMUNAL"}</span>
-                      <span className="text-primary font-headline-sm text-sm">${act.price} / Person</span>
+                      <span className="text-on-surface-variant font-label-caps text-[10px]">{act.isPrivate ? t.planner.labels.privateTour : t.planner.labels.communal}</span>
+                      <span className="text-primary font-headline-sm text-sm">${act.price}{t.planner.labels.perPerson}</span>
                     </div>
                   </div>
                 );
@@ -441,18 +443,18 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
             </div>
           </div>
 
-          {/* Step 5: Family Programs */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-2 flex items-center gap-3">
-              <span className="text-secondary">05</span> Family Programs
+              <span className="text-secondary">05</span> {t.planner.steps.family}
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-6 leading-relaxed">
-              Supervised luxury rainforest camps, teen lounges, and childcare services so you can unwind with total peace of mind.
+              {t.planner.familyHint}
             </p>
 
             <div className="space-y-4">
               {FAMILY_SERVICES.map((svc) => {
                 const isSelected = selectedFamilyServices.includes(svc.id);
+                const copy = t.planner.familyServices[svc.id as keyof typeof t.planner.familyServices];
                 return (
                   <div
                     key={svc.id}
@@ -468,16 +470,16 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                         <Baby className="w-6 h-6" />
                       </div>
                       <div>
-                        <h4 className="font-headline-sm text-base text-primary mb-1">{svc.name}</h4>
+                        <h4 className="font-headline-sm text-base text-primary mb-1">{copy.name}</h4>
                         <p className="text-xs text-on-surface-variant leading-relaxed max-w-lg">
-                          {svc.description}
+                          {copy.description}
                         </p>
                       </div>
                     </div>
                     
                     <div className="flex flex-col md:items-end self-end md:self-auto border-t md:border-t-0 border-surface-container-high pt-2 md:pt-0 w-full md:w-auto">
-                      <span className="font-headline-sm text-sm text-primary">${svc.pricePerDay} / Day</span>
-                      <span className="text-[10px] text-on-surface-variant font-label-caps">PER NIGHT / CHILD</span>
+                      <span className="font-headline-sm text-sm text-primary">${svc.pricePerDay}{t.planner.labels.perDay}</span>
+                      <span className="text-[10px] text-on-surface-variant font-label-caps">{t.planner.labels.perNightChild}</span>
                     </div>
                   </div>
                 );
@@ -485,30 +487,28 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
             </div>
           </div>
 
-          {/* Step 6: Special Requests */}
           <div className="bg-surface-container p-8 md:p-10 rounded shadow-sm border border-surface-container-high">
             <h3 className="font-headline-sm text-headline-sm text-primary mb-3 flex items-center gap-3">
-              <span className="text-secondary">06</span> Special Requests & Dietary Preferences
+              <span className="text-secondary">06</span> {t.planner.steps.special}
             </h3>
             <p className="font-body-md text-sm text-on-surface-variant mb-4 leading-relaxed">
-              Please let our boutique travel advisory desk know of any physical accessibility needs, custom kashrut supervisions, allergy requests, or specific milestone celebrations (anniversaries, bar mitzvahs, family reunions).
+              {t.planner.specialHint}
             </p>
             <div className="border-b border-outline focus-within:border-secondary transition-colors py-2">
               <textarea
                 value={specialRequests}
                 onChange={(e) => setSpecialRequests(e.target.value)}
-                placeholder="E.g., We are celebrating our silver anniversary. We require Cholav Yisrael strictly and would love assistance arranging a private torah study for our son on Monday morning..."
-                className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary h-28 resize-none"
+                placeholder={t.planner.placeholders.specialRequests}
+                className="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-base font-body-md text-primary h-28 resize-none text-start"
               />
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full bg-teal-ocean text-white hover:bg-teal-dark-hover py-5 font-label-caps text-label-caps uppercase tracking-widest transition-all rounded shadow-md hover:shadow-xl hover:-translate-y-0.5 cursor-pointer flex justify-center items-center gap-2"
           >
-            Submit Inquiry & Reserve Spot <ArrowRight className="w-4 h-4" />
+            {t.planner.submit} <ArrowRight className="w-4 h-4" />
           </button>
         </form>
 
@@ -523,41 +523,39 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
 
             <div className="flex items-center gap-2 mb-6 pb-4 border-b border-surface-container-high">
               <FileText className="text-secondary w-5 h-5" />
-              <h4 className="font-headline-sm text-lg text-primary tracking-wide uppercase">Bespoke Estimate</h4>
+              <h4 className="font-headline-sm text-lg text-primary tracking-wide uppercase">{t.planner.estimateTitle}</h4>
             </div>
 
             <div className="space-y-4 text-sm font-body-md text-on-surface-variant">
               
-              {/* Accommodation line */}
               <div className="flex justify-between items-start gap-4">
                 <div>
-                  <span className="text-primary font-semibold block">{selectedRoom.name}</span>
-                  <span className="text-xs">{nights} nights × {partySize} adults ({kidsCount} kids)</span>
+                  <span className="text-primary font-semibold block">{t.rooms.items[selectedRoomId as keyof typeof t.rooms.items].name}</span>
+                  <span className="text-xs">{nights} {t.planner.nightsAdults} {partySize} {t.planner.adultsWord} ({kidsCount} {t.planner.kidsWord})</span>
                 </div>
                 <span className="text-primary font-mono text-xs">${accommodationCost.toLocaleString()}</span>
               </div>
 
-              {/* Kashrut tier premium */}
               {kashrutPremium > 0 && (
                 <div className="flex justify-between items-start gap-4 pt-2">
                   <div>
-                    <span className="text-primary font-semibold block">Supervision Surcharge</span>
-                    <span className="text-xs">{KASHRUT_TIERS.find(k => k.id === selectedKashrut)?.name}</span>
+                    <span className="text-primary font-semibold block">{t.planner.supervisionSurcharge}</span>
+                    <span className="text-xs">{t.planner.kashrutTiers[selectedKashrut as keyof typeof t.planner.kashrutTiers].name}</span>
                   </div>
                   <span className="text-primary font-mono text-xs">${kashrutPremium.toLocaleString()}</span>
                 </div>
               )}
 
-              {/* Excursions */}
               {selectedActivities.length > 0 && (
                 <div className="border-t border-surface-container-high pt-4 space-y-2.5">
-                  <span className="font-label-caps text-[10px] text-secondary tracking-wider block font-semibold">CURATED EXCURSIONS</span>
+                  <span className="font-label-caps text-[10px] text-secondary tracking-wider block font-semibold">{t.planner.curatedExcursions}</span>
                   {selectedActivities.map((actId) => {
                     const act = ACTIVITY_OPTIONS.find(a => a.id === actId);
+                    const copy = t.planner.activities[actId as keyof typeof t.planner.activities];
                     if (!act) return null;
                     return (
                       <div key={actId} className="flex justify-between text-xs">
-                        <span className="truncate max-w-[180px]">{act.name}</span>
+                        <span className="truncate max-w-[180px]">{copy.name}</span>
                         <span className="font-mono">${(act.price * partySize).toLocaleString()}</span>
                       </div>
                     );
@@ -565,17 +563,17 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                 </div>
               )}
 
-              {/* Family Programs */}
               {selectedFamilyServices.length > 0 && (
                 <div className="border-t border-surface-container-high pt-4 space-y-2.5">
-                  <span className="font-label-caps text-[10px] text-secondary tracking-wider block font-semibold">FAMILY PROGRAMMING</span>
+                  <span className="font-label-caps text-[10px] text-secondary tracking-wider block font-semibold">{t.planner.familyProgramming}</span>
                   {selectedFamilyServices.map((svcId) => {
                     const svc = FAMILY_SERVICES.find(s => s.id === svcId);
+                    const copy = t.planner.familyServices[svcId as keyof typeof t.planner.familyServices];
                     if (!svc) return null;
                     const count = kidsCount > 0 ? kidsCount : 1;
                     return (
                       <div key={svcId} className="flex justify-between text-xs">
-                        <span className="truncate max-w-[180px]">{svc.name}</span>
+                        <span className="truncate max-w-[180px]">{copy.name}</span>
                         <span className="font-mono">${(svc.pricePerDay * nights * count).toLocaleString()}</span>
                       </div>
                     );
@@ -583,21 +581,19 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
                 </div>
               )}
 
-              {/* Invoice Total */}
               <div className="border-t-2 border-dashed border-surface-container-high pt-6 mt-6 flex justify-between items-baseline">
-                <span className="font-label-caps text-xs text-primary font-bold">ESTIMATED TOTAL</span>
-                <div className="text-right">
+                <span className="font-label-caps text-xs text-primary font-bold">{t.planner.labels.estimatedTotal}</span>
+                <div className="text-end">
                   <span className="font-headline-sm text-2xl text-secondary font-bold block">${totalEstimatedPrice.toLocaleString()}</span>
-                  <span className="text-[10px] text-on-surface-variant italic">Subject to advisor review</span>
+                  <span className="text-[10px] text-on-surface-variant italic">{t.planner.labels.subjectReview}</span>
                 </div>
               </div>
             </div>
 
-            {/* Inclusions info banner */}
             <div className="mt-8 bg-surface p-4 rounded-sm border border-surface-container flex gap-3 text-xs">
               <Info className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
               <p className="text-on-surface-variant leading-relaxed">
-                <strong>Standard Inclusions:</strong> 3 Gourmet Glatt Kosher meals daily, airport transfer, full Shul/Synagogue access, on-site leisure amenities (Infinity Pool, Yoga Deck, Catamaran exclusions if selected).
+                <strong>{t.planner.inclusionsTitle}</strong> {t.planner.inclusionsBody}
               </p>
             </div>
           </div>
@@ -605,9 +601,9 @@ export default function RetreatBuilder({ onInquirySubmitted, preSelectedRoomId, 
           <div className="bg-surface-container p-6 rounded border border-surface-container-high flex items-start gap-4">
             <HeartHandshake className="w-6 h-6 text-secondary shrink-0 mt-0.5" />
             <div>
-              <h5 className="font-label-caps text-xs text-primary font-bold mb-1">Our Booking Pledge</h5>
+              <h5 className="font-label-caps text-xs text-primary font-bold mb-1">{t.planner.pledgeTitle}</h5>
               <p className="text-xs text-on-surface-variant leading-relaxed">
-                Submitting this inquiry holds your priority spot in our retreat. A luxury concierge will contact you via email or phone within 24 hours to review your schedule, fine-tune special requests, and finalize the reservation.
+                {t.planner.pledgeBody}
               </p>
             </div>
           </div>

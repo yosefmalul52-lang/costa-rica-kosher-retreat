@@ -5,6 +5,9 @@ import DiscoverView from "./components/DiscoverView";
 import RetreatBuilder from "./components/RetreatBuilder";
 import ConciergeChat from "./components/ConciergeChat";
 import { Inquiry, ChatMessage } from "./types";
+import { FadeUp } from "./components/motion/PremiumReveal";
+import { useLanguage } from "./context/LanguageContext";
+import { useSmoothScroll } from "./hooks/useSmoothScroll";
 import { 
   Sparkles, 
   Calendar, 
@@ -25,6 +28,8 @@ import {
 } from "lucide-react";
 
 export default function App() {
+  const { t, language } = useLanguage();
+  useSmoothScroll();
   const [activeTab, setActiveTab] = React.useState<"discover" | "planner" | "inquiries" | "chat">("discover");
   const [inquiries, setInquiries] = React.useState<Inquiry[]>([]);
   const [chatHistory, setChatHistory] = React.useState<ChatMessage[]>([]);
@@ -68,7 +73,7 @@ export default function App() {
   };
 
   const handleDeleteInquiry = (id: string) => {
-    if (confirm("Are you sure you want to cancel this retreat inquiry?")) {
+    if (confirm(t.inquiries.deleteConfirm)) {
       const updated = inquiries.filter(i => i.id !== id);
       saveInquiries(updated);
       if (selectedInquiryId === id) {
@@ -112,8 +117,8 @@ export default function App() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <DiscoverView 
-                onStartPlanning={handleStartPlanning} 
+              <DiscoverView
+                onStartPlanning={handleStartPlanning}
                 onExploreRoom={handleExploreRoom}
               />
             </motion.div>
@@ -127,7 +132,7 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <RetreatBuilder 
+              <RetreatBuilder
                 onInquirySubmitted={handleInquirySubmission}
                 preSelectedRoomId={preSelectedRoomId}
                 clearPreSelectedRoom={() => setPreSelectedRoomId(null)}
@@ -143,8 +148,8 @@ export default function App() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.5 }}
             >
-              <ConciergeChat 
-                chatHistory={chatHistory} 
+              <ConciergeChat
+                chatHistory={chatHistory}
                 setChatHistory={setChatHistory}
               />
             </motion.div>
@@ -159,26 +164,27 @@ export default function App() {
               transition={{ duration: 0.5 }}
               className="py-24 max-w-container-max mx-auto px-4 md:px-margin-desktop bg-surface select-text"
             >
+              <div key={language}>
               <div className="text-center mb-16 max-w-2xl mx-auto">
-                <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest font-semibold">Travel advisor Board</span>
-                <h1 className="font-headline-lg text-headline-lg text-primary mb-4">My luxury escape inquiries.</h1>
+                <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest font-semibold">{t.inquiries.eyebrow}</span>
+                <h1 className="font-headline-lg text-headline-lg text-primary mb-4">{t.inquiries.title}</h1>
                 <p className="font-body-md text-sm text-on-surface-variant leading-relaxed">
-                  Track the progress of your luxury requests, download pre-booking invoices, and monitor active volcanic getaway countdowns.
+                  {t.inquiries.subtitle}
                 </p>
               </div>
 
               {inquiries.length === 0 ? (
                 <div className="bg-surface-container p-12 text-center rounded border border-surface-container-high max-w-xl mx-auto shadow-sm">
                   <Clock className="w-12 h-12 text-secondary/60 mx-auto mb-4" />
-                  <h3 className="font-headline-sm text-lg text-primary mb-2">No Active Inquiries Found</h3>
+                  <h3 className="font-headline-sm text-lg text-primary mb-2">{t.inquiries.emptyTitle}</h3>
                   <p className="text-xs text-on-surface-variant leading-relaxed mb-6">
-                    You have not configured or submitted any escape inquiries yet. Visit the retreat planner to customize your first bespoke package.
+                    {t.inquiries.emptyBody}
                   </p>
                   <button 
                     onClick={() => setActiveTab("planner")}
                     className="bg-primary text-on-primary hover:bg-secondary px-6 py-3 font-label-caps text-xs uppercase tracking-widest rounded-sm shadow-md cursor-pointer"
                   >
-                    Open Retreat Planner
+                    {t.inquiries.emptyCta}
                   </button>
                 </div>
               ) : (
@@ -186,7 +192,7 @@ export default function App() {
                   
                   {/* Left Side: Inquiry Selector List (4 cols) */}
                   <div className="lg:col-span-4 space-y-4">
-                    <span className="font-label-caps text-[10px] text-secondary tracking-widest block font-bold">SUBMITTED INQUIRIES</span>
+                    <span className="font-label-caps text-[10px] text-secondary tracking-widest block font-bold">{t.inquiries.submittedLabel}</span>
                     
                     <div className="space-y-3">
                       {inquiries.map((inq) => {
@@ -210,7 +216,7 @@ export default function App() {
                             <h4 className="font-headline-sm text-sm text-primary mb-1">{inq.roomType}</h4>
                             <p className="text-xs text-on-surface-variant block mb-3">{inq.dates}</p>
                             <div className="flex justify-between items-center text-[10px] font-label-caps text-on-surface-variant">
-                              <span>{inq.partySize} ADULTS</span>
+                              <span className="text-[10px] font-label-caps text-on-surface-variant">{inq.partySize} {t.inquiries.adultsSuffix.toUpperCase()}</span>
                               <span className="text-primary font-bold font-mono">${inq.totalEstimatedPrice.toLocaleString()}</span>
                             </div>
                           </div>
@@ -222,7 +228,7 @@ export default function App() {
                       onClick={() => setActiveTab("planner")}
                       className="w-full border border-dashed border-secondary text-secondary hover:bg-secondary hover:text-on-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-all cursor-pointer text-center"
                     >
-                      + Create New Plan
+                      {t.inquiries.createNew}
                     </button>
                   </div>
 
@@ -235,11 +241,11 @@ export default function App() {
                         <div className="flex items-center gap-3 mb-1">
                           <span className="font-mono text-base text-secondary font-bold">{selectedInquiry.id}</span>
                           <span className="bg-emerald-100 text-emerald-800 text-xs font-label-caps px-2.5 py-1 rounded-sm">
-                            ADVISOR REVIEW IN PROGRESS
+                            {t.inquiries.statusReview}
                           </span>
                         </div>
                         <h2 className="font-headline-sm text-xl md:text-2xl text-primary">{selectedInquiry.roomType}</h2>
-                        <span className="text-xs text-on-surface-variant block mt-1">Submitted on {selectedInquiry.dateSubmitted}</span>
+                        <span className="text-xs text-on-surface-variant block mt-1">{t.inquiries.submittedOn}{selectedInquiry.dateSubmitted}</span>
                       </div>
 
                       <div className="flex gap-3">
@@ -248,7 +254,7 @@ export default function App() {
                             window.print();
                           }}
                           className="border border-surface-container-high hover:border-secondary p-2.5 rounded text-primary hover:text-secondary bg-surface transition-colors cursor-pointer"
-                          title="Print Estimate Receipt"
+                          title={t.inquiries.printTitle}
                         >
                           <Printer className="w-4 h-4" />
                         </button>
@@ -256,7 +262,7 @@ export default function App() {
                         <button
                           onClick={() => handleDeleteInquiry(selectedInquiry.id)}
                           className="border border-red-200 hover:bg-red-50 p-2.5 rounded text-red-600 transition-colors cursor-pointer"
-                          title="Cancel/Delete Inquiry"
+                          title={t.inquiries.deleteTitle}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -266,50 +272,50 @@ export default function App() {
                     {/* Premium Escape Countdown Stamp */}
                     <div className="bg-surface p-6 border-l-4 border-secondary rounded shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                       <div className="space-y-1">
-                        <span className="font-label-caps text-[10px] text-secondary tracking-widest block font-bold">ALTURA ESCAPE COUTNDOWN</span>
-                        <h4 className="font-headline-sm text-base text-primary">Your Costa Rican mountain sanctuary awaits!</h4>
+                        <span className="font-label-caps text-[10px] text-secondary tracking-widest block font-bold">{t.inquiries.countdownLabel}</span>
+                        <h4 className="font-headline-sm text-base text-primary">{t.inquiries.countdownTitle}</h4>
                         <p className="text-xs text-on-surface-variant leading-relaxed">
-                          A luxury kosher travel advisor will reach out to <strong>{selectedInquiry.email}</strong> or <strong>{selectedInquiry.phone}</strong> shortly to lock in pricing and select exact dates.
+                          {t.inquiries.countdownBody} <strong>{selectedInquiry.email}</strong> {t.inquiries.countdownBodyOr} <strong>{selectedInquiry.phone}</strong> {t.inquiries.countdownBodyEnd}
                         </p>
                       </div>
 
                       <div className="bg-primary-container text-on-primary p-4 rounded text-center min-w-[120px]">
                         <span className="font-mono text-2xl font-bold block text-secondary-fixed">142</span>
-                        <span className="font-label-caps text-[9px] text-on-primary-container block tracking-widest">DAYS TO DECOMPRESS</span>
+                        <span className="font-label-caps text-[9px] text-on-primary-container block tracking-widest">{t.inquiries.daysLabel}</span>
                       </div>
                     </div>
 
                     {/* Specifications table */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
                       <div className="space-y-4">
-                        <span className="font-label-caps text-xs text-secondary tracking-wider block font-bold border-b border-surface-container-high pb-2">RESERVATION SPECIFICATIONS</span>
+                        <span className="font-label-caps text-xs text-secondary tracking-wider block font-bold border-b border-surface-container-high pb-2">{t.inquiries.specsTitle}</span>
                         
                         <div className="space-y-3 font-body-md text-on-surface-variant">
                           <div className="flex justify-between">
-                            <span>Primary Contact:</span>
+                            <span>{t.inquiries.primaryContact}</span>
                             <strong className="text-primary font-medium">{selectedInquiry.fullName}</strong>
                           </div>
                           <div className="flex justify-between">
-                            <span>Bespoke Dates:</span>
+                            <span>{t.inquiries.bespokeDates}</span>
                             <strong className="text-primary font-medium">{selectedInquiry.dates}</strong>
                           </div>
                           <div className="flex justify-between">
-                            <span>Adult Guests:</span>
-                            <strong className="text-primary font-medium">{selectedInquiry.partySize} Adults</strong>
+                            <span>{t.inquiries.adultGuests}</span>
+                            <strong className="text-primary font-medium">{selectedInquiry.partySize} {t.inquiries.adultsSuffix}</strong>
                           </div>
                           <div className="flex justify-between">
-                            <span>Kashrut Selection:</span>
+                            <span>{t.inquiries.kashrutSelection}</span>
                             <strong className="text-secondary font-medium uppercase text-xs">{selectedInquiry.kashrutTier}</strong>
                           </div>
                         </div>
                       </div>
 
                       <div className="space-y-4">
-                        <span className="font-label-caps text-xs text-secondary tracking-wider block font-bold border-b border-surface-container-high pb-2">CURATED PROGRAMMING</span>
+                        <span className="font-label-caps text-xs text-secondary tracking-wider block font-bold border-b border-surface-container-high pb-2">{t.inquiries.programmingTitle}</span>
                         
                         <div className="space-y-2">
                           {selectedInquiry.activities.length === 0 ? (
-                            <p className="text-on-surface-variant text-sm italic">No custom excursions selected yet. You can coordinate them with your advisor.</p>
+                            <p className="text-on-surface-variant text-sm italic">{t.inquiries.noActivities}</p>
                           ) : (
                             selectedInquiryActivities(selectedInquiry)
                           )}
@@ -320,7 +326,7 @@ export default function App() {
                     {/* Special Requests Details */}
                     {selectedRequests(selectedInquiry) && (
                       <div className="bg-surface-container-low p-6 rounded border border-surface-container">
-                        <h5 className="font-label-caps text-xs text-primary mb-2 uppercase tracking-wider font-semibold">Special Accommodations & requests</h5>
+                        <h5 className="font-label-caps text-xs text-primary mb-2 uppercase tracking-wider font-semibold">{t.inquiries.specialTitle}</h5>
                         <p className="text-on-surface-variant text-sm leading-relaxed italic">
                           "{selectedRequests(selectedInquiry)}"
                         </p>
@@ -330,15 +336,15 @@ export default function App() {
                     {/* Price Breakdown Estimation */}
                     <div className="border-t border-surface-container-high pt-8 flex flex-col md:flex-row justify-between items-center bg-surface p-8 rounded border">
                       <div>
-                        <span className="font-label-caps text-xs text-secondary tracking-widest uppercase block mb-1">PROVISIONAL COST ESTIMATION</span>
-                        <h4 className="font-headline-sm text-sm text-primary">All-inclusive VIP Retreat Package</h4>
-                        <p className="text-[10px] text-on-surface-variant">Subject to local seasonal multipliers</p>
+                        <span className="font-label-caps text-xs text-secondary tracking-widest uppercase block mb-1">{t.inquiries.costTitle}</span>
+                        <h4 className="font-headline-sm text-sm text-primary">{t.inquiries.costSubtitle}</h4>
+                        <p className="text-[10px] text-on-surface-variant">{t.inquiries.costNote}</p>
                       </div>
 
-                      <div className="text-right mt-4 md:mt-0">
+                      <div className="text-end mt-4 md:mt-0">
                         <span className="font-headline-md text-3xl text-secondary font-bold block">${selectedInquiry.totalEstimatedPrice.toLocaleString()}</span>
                         <span className="text-[9px] font-label-caps uppercase tracking-widest text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full inline-block mt-2">
-                          Glatt certification included
+                          {t.inquiries.glattIncluded}
                         </span>
                       </div>
                     </div>
@@ -347,6 +353,7 @@ export default function App() {
 
                 </div>
               )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -354,59 +361,60 @@ export default function App() {
 
       {/* Footer */}
       <footer className="bg-teal-footer text-white/90 w-full py-20 px-4 md:px-margin-desktop border-t border-border-custom/25">
+        <FadeUp>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto mb-16">
           <div className="col-span-1 md:col-span-2">
-            <h3 className="font-headline-sm text-headline-sm text-gold-soft mb-4 tracking-widest uppercase">The Sanctuary</h3>
+            <h3 className="font-headline-sm text-headline-sm text-gold-soft mb-4 tracking-widest uppercase">{t.footer.brand}</h3>
             <p className="font-body-md text-sm text-main-bg/80 max-w-sm mb-6 leading-relaxed">
-              A bespoke, ultra-luxury Kosher Retreat Experience nestled in the pristine mountains of Cartago, Costa Rica.
+              {t.footer.description}
             </p>
-            <div className="flex gap-4">
-              <span className="bg-teal-dark-primary px-3 py-1 text-[10px] font-label-caps uppercase tracking-wider rounded border border-border-custom/30 text-white/90">Glatt Kosher 24/7</span>
-              <span className="bg-teal-dark-primary px-3 py-1 text-[11px] font-label-caps uppercase tracking-wider rounded border border-border-custom/30 text-white/90">Shabbat Observant</span>
+            <div className="flex gap-4 flex-wrap">
+              {t.footer.badges.map((badge) => (
+              <span key={badge} className="bg-teal-dark-primary px-3 py-1 text-[10px] font-label-caps uppercase tracking-wider rounded border border-border-custom/30 text-white/90">{badge}</span>
+              ))}
             </div>
             
-            {/* Newsletter input from instructions */}
             <div className="mt-8 max-w-sm">
-              <label className="font-label-caps text-[10px] uppercase tracking-wider block mb-2 text-gold-soft">Bespoke Newsletter</label>
+              <label className="font-label-caps text-[10px] uppercase tracking-wider block mb-2 text-gold-soft">{t.footer.newsletterLabel}</label>
               <div className="flex gap-2">
                 <input 
                   type="email" 
-                  placeholder="Enter your email" 
-                  className="flex-1 bg-white text-text-main placeholder:text-text-muted/60 px-4 py-2.5 text-xs rounded-sm focus:outline-none"
-                  defaultValue="vip@thesanctuary.com"
+                  placeholder={t.footer.emailPlaceholder}
+                  className="flex-1 bg-white text-text-main placeholder:text-text-muted/60 px-4 py-2.5 text-xs rounded-sm focus:outline-none input-ltr"
                 />
                 <button 
                   type="button" 
-                  className="bg-teal-ocean text-white hover:bg-teal-dark-hover px-4 py-2.5 text-xs font-label-caps uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+                  className="btn-premium-hover bg-teal-ocean text-white hover:bg-teal-dark-hover px-4 py-2.5 text-xs font-label-caps uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
                 >
-                  Subscribe
+                  {t.footer.subscribe}
                 </button>
               </div>
             </div>
           </div>
           <div>
-            <h4 className="font-label-caps text-xs uppercase mb-4 text-gold-soft font-bold">Explore</h4>
+            <h4 className="font-label-caps text-xs uppercase mb-4 text-gold-soft font-bold">{t.footer.exploreTitle}</h4>
             <ul className="space-y-3 text-sm text-white/80 font-body-md">
-              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">The Promise</button></li>
-              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 1200, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">Location</button></li>
-              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 2100, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">Kosher Dining</button></li>
-              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 4000, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">Accommodations</button></li>
+              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.exploreLinks[0]}</button></li>
+              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 1200, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.exploreLinks[1]}</button></li>
+              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 2100, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.exploreLinks[2]}</button></li>
+              <li><button onClick={() => { setActiveTab("discover"); window.scrollTo({ top: 4000, behavior: "smooth" }); }} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.exploreLinks[3]}</button></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-label-caps text-xs uppercase mb-4 text-gold-soft font-bold">Inquire</h4>
+            <h4 className="font-label-caps text-xs uppercase mb-4 text-gold-soft font-bold">{t.footer.inquireTitle}</h4>
             <ul className="space-y-3 text-sm text-white/80 font-body-md">
-              <li><button onClick={() => setActiveTab("planner")} className="hover:text-gold-main transition-colors cursor-pointer">Personalize Package</button></li>
-              <li><button onClick={() => setActiveTab("chat")} className="hover:text-gold-main transition-colors cursor-pointer">Bespoke Concierge AI</button></li>
-              <li><span className="block opacity-60">Cartago Estate, Costa Rica</span></li>
+              <li><button onClick={() => setActiveTab("planner")} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.inquireLinks[0]}</button></li>
+              <li><button onClick={() => setActiveTab("chat")} className="hover:text-gold-main transition-colors cursor-pointer">{t.footer.inquireLinks[1]}</button></li>
+              <li><span className="block opacity-60">{t.footer.location}</span></li>
             </ul>
           </div>
         </div>
         <div className="max-w-container-max mx-auto text-center pt-8 border-t border-border-custom/20">
           <p className="font-body-md text-xs text-main-bg/60">
-            © 2026 The Sanctuary. All rights reserved. A Premium Kosher Retreat Experience under strict Glatt Kosher certification.
+            {t.footer.copyright}
           </p>
         </div>
+        </FadeUp>
       </footer>
 
     </div>

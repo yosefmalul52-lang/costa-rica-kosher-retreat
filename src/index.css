@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;600;700&display=swap');
 
 @theme {
   --font-serif: "Playfair Display", Georgia, serif;
@@ -136,5 +137,165 @@ img.image-crisp {
   -webkit-optimize-contrast: auto;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+@utility scale-102 {
+  scale: 1.02;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  overflow-x: clip;
+}
+
+.horizontal-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  .horizontal-scroll-container {
+    scroll-behavior: auto;
+  }
+
+  .btn-premium-hover:hover {
+    transform: none;
+  }
+}
+
+@layer components {
+  .btn-premium-hover {
+    transition:
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms ease,
+      border-color 300ms ease,
+      box-shadow 300ms ease,
+      color 300ms ease;
+  }
+
+  .btn-premium-hover:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-premium-hover:active {
+    transform: translateY(0);
+  }
+}
+
+html.rtl {
+  font-family: "Heebo", sans-serif;
+}
+
+html.rtl .font-headline-xl,
+html.rtl .font-headline-lg,
+html.rtl .font-headline-md,
+html.rtl .font-headline-sm {
+  font-family: "Frank Ruhl Libre", Georgia, serif;
+}
+
+html.rtl .text-headline-xl {
+  font-size: 56px;
+}
+
+html.rtl .text-headline-lg {
+  font-size: 42px;
+}
+
+html.rtl .text-headline-md {
+  font-size: 28px;
+}
+
+html.rtl .text-headline-sm {
+  font-size: 22px;
+}
+
+html.rtl input[type="email"],
+html.rtl input[type="tel"] {
+  direction: ltr;
+  text-align: left;
+}
+
+html.rtl .input-ltr {
+  direction: ltr;
+  text-align: left;
+}
+
+html.rtl .border-l-2 {
+  border-left-width: 0;
+  border-right-width: 2px;
+  border-right-style: solid;
+}
+
+html.rtl .border-l-4 {
+  border-left-width: 0;
+  border-right-width: 4px;
+  border-right-style: solid;
+}
+
+html.rtl .rounded-r {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+html.rtl .carousel-card-caption {
+  left: auto;
+  right: 0;
+  text-align: start;
+}
+
+html.rtl .family-hero-caption {
+  left: auto;
+  right: 2rem;
+}
+
+@media (min-width: 768px) {
+  html.rtl .family-hero-caption {
+    right: 3rem;
+  }
+}
+
+html.rtl .bento-caption,
+html.rtl .scroll-story-caption {
+  left: auto;
+  right: 1.5rem;
+}
+
+html.rtl .trust-stat-divider {
+  border-right-width: 0;
+  border-left-width: 1px;
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+html.rtl .trust-stat-divider:last-child {
+  border-left-width: 0;
+}
+
+html.rtl .chat-user-row {
+  flex-direction: row;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html.rtl .chat-concierge-row {
+  flex-direction: row-reverse;
+  margin-right: 0;
+  margin-left: auto;
 }
 
