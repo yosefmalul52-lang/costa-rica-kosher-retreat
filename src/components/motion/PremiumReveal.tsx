@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, type HTMLMotionProps } from "motion/react";
+import { motion, useInView, type HTMLMotionProps } from "motion/react";
 import { SCROLL_VIEWPORT, usePremiumMotion, type MotionSide } from "../../lib/motionPresets";
 
 type RevealProps = HTMLMotionProps<"div"> & {
@@ -7,14 +7,21 @@ type RevealProps = HTMLMotionProps<"div"> & {
   withBlur?: boolean;
 };
 
+function useRevealInView() {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, SCROLL_VIEWPORT);
+  return { ref, isInView };
+}
+
 export function FadeUp({ children, className, delay = 0, withBlur = false, ...rest }: RevealProps) {
   const { fadeUp } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={fadeUp(delay, withBlur)}
       initial="hidden"
-      whileInView="visible"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "visible" : "hidden"}
       className={className}
       {...rest}
     >
@@ -31,12 +38,13 @@ export function SplitText({
   ...rest
 }: RevealProps & { side?: MotionSide }) {
   const { splitText } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={splitText(side, delay)}
       initial="hidden"
-      whileInView="visible"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "visible" : "hidden"}
       className={className}
       {...rest}
     >
@@ -53,12 +61,13 @@ export function SplitImage({
   ...rest
 }: RevealProps & { side?: MotionSide }) {
   const { splitImage } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={splitImage(side, delay)}
       initial="hidden"
-      whileInView="visible"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "visible" : "hidden"}
       className={className}
       {...rest}
     >
@@ -75,12 +84,13 @@ export function ImageReveal({
   ...rest
 }: RevealProps & { innerClassName?: string }) {
   const { imageRevealWrapper, imageRevealInner } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={imageRevealWrapper(delay)}
       initial="hidden"
-      whileInView="visible"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "visible" : "hidden"}
       className={["overflow-hidden", className].filter(Boolean).join(" ")}
       {...rest}
     >
@@ -93,12 +103,13 @@ export function ImageReveal({
 
 export function SoftScale({ children, className, delay = 0, ...rest }: RevealProps) {
   const { softScale } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={softScale(delay)}
       initial="hidden"
-      whileInView="visible"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "visible" : "hidden"}
       className={className}
       {...rest}
     >
@@ -114,12 +125,13 @@ export function StaggerGroup({
   ...rest
 }: RevealProps & { stagger?: number }) {
   const { staggerContainer } = usePremiumMotion();
+  const { ref, isInView } = useRevealInView();
   return (
     <motion.div
+      ref={ref}
       variants={staggerContainer(stagger)}
       initial="hidden"
-      whileInView="show"
-      viewport={SCROLL_VIEWPORT}
+      animate={isInView ? "show" : "hidden"}
       className={className}
       {...rest}
     >

@@ -2,6 +2,7 @@ import { useLanguage } from "../context/LanguageContext";
 
 type LanguageToggleProps = {
   className?: string;
+  variant?: "overlay" | "solid";
 };
 
 function FlagUs({ className = "" }: { className?: string }) {
@@ -65,17 +66,29 @@ function FlagIl({ className = "" }: { className?: string }) {
   );
 }
 
-const flagClass = "h-3.5 w-5 rounded-[2px] ring-1 ring-black/5";
+const flagClass = "h-2.5 w-3.5 rounded-[1px] ring-1 ring-black/5";
 
-export default function LanguageToggle({ className = "" }: LanguageToggleProps) {
+export default function LanguageToggle({ className = "", variant = "solid" }: LanguageToggleProps) {
   const { language, setLanguage } = useLanguage();
   const isEn = language === "en";
+  const isOverlay = variant === "overlay";
+
+  const shellClass = isOverlay
+    ? "border-white/45 bg-transparent"
+    : "border-[#03777A] bg-transparent";
+
+  const sliderClass = isOverlay ? "bg-white/10" : "bg-[#03777A]/10";
+
+  const focusRingClass = isOverlay
+    ? "focus-visible:ring-white/35"
+    : "focus-visible:ring-[#03777A]/35";
 
   const segmentClass = (active: boolean) =>
     [
       "relative z-10 flex flex-1 items-center justify-center rounded-full",
       "transition-opacity duration-200 ease-out cursor-pointer",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#03777A]/35 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-offset-transparent",
+      focusRingClass,
       active ? "pointer-events-none" : "opacity-90 hover:opacity-100",
     ].join(" ");
 
@@ -87,11 +100,11 @@ export default function LanguageToggle({ className = "" }: LanguageToggleProps) 
       className={["relative inline-flex shrink-0", className].join(" ")}
     >
       <div
-        className="relative grid h-7 w-[84px] grid-cols-2 rounded-full border border-[#03777A] bg-transparent p-0.5"
+        className={["relative grid h-6 w-[68px] grid-cols-2 rounded-full border p-0.5", shellClass].join(" ")}
       >
         <span
           aria-hidden
-          className="pointer-events-none absolute top-0.5 bottom-0.5 rounded-full bg-[#03777A]/20 transition-transform duration-300 ease-out"
+          className={["pointer-events-none absolute top-0.5 bottom-0.5 rounded-full transition-transform duration-300 ease-out", sliderClass].join(" ")}
           style={{
             width: "calc(50% - 2px)",
             left: "2px",

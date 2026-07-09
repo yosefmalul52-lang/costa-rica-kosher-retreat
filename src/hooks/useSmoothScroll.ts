@@ -11,14 +11,12 @@ function shouldLenisHandleScroll(data: { deltaX: number; deltaY: number; event: 
   const horizontalScroller = target.closest(".horizontal-scroll-container");
   if (!horizontalScroller) return true;
 
-  // Let the browser handle horizontal wheel/trackpad gestures inside carousels.
   if (Math.abs(data.deltaX) > Math.abs(data.deltaY)) return false;
 
-  // Vertical scroll over a carousel should stay on Lenis (do not use data-lenis-prevent).
   return true;
 }
 
-export function useSmoothScroll() {
+export function useSmoothScroll(pathname?: string) {
   const reduceMotion = useReducedMotion();
   const lenisRef = React.useRef<Lenis | null>(null);
 
@@ -55,6 +53,17 @@ export function useSmoothScroll() {
       lenisRef.current = null;
     };
   }, [reduceMotion]);
+
+  React.useEffect(() => {
+    if (pathname === undefined) return;
+
+    const lenis = lenisRef.current;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }
+  }, [pathname]);
 
   return lenisRef;
 }

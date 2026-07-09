@@ -1,18 +1,27 @@
 import React from "react";
-import { Menu, Phone, Search, X } from "lucide-react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, Phone, X } from "lucide-react";
 import LanguageToggle from "./LanguageToggle";
 import { useLanguage } from "../context/LanguageContext";
+import { BRAND_LOGO, BRAND_LOGO_LIGHT, BRAND_NAME, HAS_REAL_PHONE } from "../content/brand";
 
-interface NavbarProps {
-  activeTab: "discover" | "planner" | "inquiries" | "chat";
-  setActiveTab: (tab: "discover" | "planner" | "inquiries" | "chat") => void;
-  inquiriesCount: number;
-}
+/** Set to true to restore the language toggle in the navbar. */
+const SHOW_LANGUAGE_TOGGLE = false;
 
-export default function Navbar({ activeTab, setActiveTab, inquiriesCount }: NavbarProps) {
+const NAV_ROUTES = [
+  { to: "/", labelKey: "home" as const, end: true },
+  { to: "/rooms", labelKey: "rooms" as const },
+  { to: "/kosher-jewish-life", labelKey: "kosherJewishLife" as const },
+  { to: "/costa-rica-guide", labelKey: "costaRicaGuide" as const },
+  { to: "/faq", labelKey: "faq" as const },
+];
+
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { t } = useLanguage();
+  const { pathname } = useLocation();
+  const isHome = pathname === "/";
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -24,31 +33,43 @@ export default function Navbar({ activeTab, setActiveTab, inquiriesCount }: Navb
 
   React.useEffect(() => {
     setMobileOpen(false);
-  }, [activeTab]);
+  }, [pathname]);
 
-  const isSolid = isScrolled || activeTab !== "discover";
+  React.useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const isSolid = isScrolled || !isHome;
   const textClass = isSolid ? "text-teal-dark-primary" : "text-white";
   const underlineClass = isSolid ? "bg-gold-main" : "bg-gold-soft";
 
-  const navLinkClass = (tab: typeof activeTab) =>
-    `font-label-caps text-label-caps pb-1 transition-all border-b-2 hover:opacity-100 ${
-      activeTab === tab
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    [
+      "font-label-caps text-[14px] pb-1 transition-all border-b-2 hover:opacity-100 tracking-[0.08em] uppercase whitespace-nowrap",
+      isActive
         ? "border-gold-main opacity-100 font-semibold"
-        : "border-transparent opacity-70 hover:border-teal-ocean/40 hover:text-teal-ocean"
-    } ${textClass}`;
+        : "border-transparent opacity-70 hover:border-teal-ocean/40 hover:text-teal-ocean",
+      textClass,
+    ].join(" ");
 
-  const handleTab = (tab: typeof activeTab) => {
-    setActiveTab(tab);
-    setMobileOpen(false);
-  };
+  const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
+    [
+      "font-label-caps text-[15px] pb-1 transition-all border-b-2 hover:opacity-100 text-start py-3",
+      isActive
+        ? "border-gold-main opacity-100 font-semibold text-teal-dark-primary"
+        : "border-transparent opacity-70 text-teal-dark-primary",
+    ].join(" ");
 
-  const phoneHref = `tel:${t.nav.phone.replace(/[^\d+]/g, "")}`;
+  const phoneHref = HAS_REAL_PHONE ? `tel:${t.nav.phone.replace(/[^\d+]/g, "")}` : null;
   const actionBorderClass = isSolid ? "border-[#03777A]" : "border-white/45";
   const actionTextClass = isSolid ? "text-[#03777A]" : "text-white";
   const actionHoverClass = isSolid ? "hover:bg-[#03777A]/8" : "hover:bg-white/10";
-  const searchTextClass = isSolid
-    ? "text-teal-dark-primary placeholder:text-teal-dark-primary/50"
-    : "text-white placeholder:text-white/60";
+  const ctaClass = isSolid
+    ? "bg-teal-ocean text-white hover:bg-teal-dark-hover border-teal-ocean"
+    : "border-white/45 text-white hover:bg-white/10 bg-transparent";
 
   return (
     <header
@@ -59,85 +80,89 @@ export default function Navbar({ activeTab, setActiveTab, inquiriesCount }: Navb
           : "bg-transparent py-6"
       }`}
     >
-      <div className="relative flex justify-between items-center px-4 md:px-margin-desktop py-unit max-w-container-max mx-auto h-16">
-        <button
-          onClick={() => handleTab("discover")}
-          className="text-start focus:outline-none group"
+      <div className="relative flex justify-between items-center px-4 md:px-margin-desktop max-w-container-max mx-auto h-20">
+        <NavLink
+          to="/"
+          className="relative shrink-0 flex h-20 items-center focus:outline-none group min-w-0 max-w-[calc(100%-3.5rem)] sm:max-w-[min(72vw,420px)] lg:max-w-[min(38vw,480px)]"
+          aria-label={BRAND_NAME}
         >
-          <span
+          <img
             id="nav-logo"
-            className={`font-headline-sm text-headline-sm tracking-[0.2em] uppercase transition-colors duration-500 block ${textClass}`}
-          >
-            {t.nav.logo}
-          </span>
-          <span
-            className={`block h-[1px] w-0 group-hover:w-full transition-all duration-300 ${underlineClass}`}
+            src={isSolid ? BRAND_LOGO : BRAND_LOGO_LIGHT}
+            alt={BRAND_NAME}
+            width={880}
+            height={272}
+            className="h-full max-h-20 w-auto object-contain object-left transition-opacity duration-300"
+            decoding="async"
           />
-        </button>
+          <span
+            className={`absolute inset-x-0 bottom-0 h-px w-0 group-hover:w-full transition-all duration-300 ${underlineClass}`}
+          />
+        </NavLink>
 
-        <nav className="hidden md:flex items-center gap-8">
-          <button onClick={() => handleTab("discover")} className={navLinkClass("discover")}>
-            {t.nav.discover}
-          </button>
-          <button onClick={() => handleTab("planner")} className={navLinkClass("planner")}>
-            {t.nav.planner}
-          </button>
-          <button
-            onClick={() => handleTab("inquiries")}
-            className={`${navLinkClass("inquiries")} relative`}
-          >
-            {t.nav.inquiries}
-            {inquiriesCount > 0 && (
-              <span className="absolute -top-1.5 -end-3.5 bg-gold-main text-white text-[9px] w-4 h-4 flex items-center justify-center rounded-full font-bold">
-                {inquiriesCount}
-              </span>
-            )}
-          </button>
-          <button onClick={() => handleTab("chat")} className={navLinkClass("chat")}>
-            {t.nav.chat}
-          </button>
+        <nav className="hidden lg:flex items-center gap-2 xl:gap-3 2xl:gap-4">
+          {NAV_ROUTES.map((item) => (
+            <NavLink key={item.to} to={item.to} end={item.end} className={navLinkClass}>
+              {t.nav[item.labelKey]}
+            </NavLink>
+          ))}
         </nav>
 
         <div className="flex items-center gap-2 md:gap-3">
-          <label
-            className={[
-              "hidden md:flex h-7 w-14 lg:w-20 items-center gap-1 rounded-full border bg-transparent px-2 transition-colors",
-              actionBorderClass,
-              actionHoverClass,
-            ].join(" ")}
-          >
-            <Search className={["h-3 w-3 shrink-0 opacity-80", actionTextClass].join(" ")} aria-hidden="true" />
-            <input
-              type="search"
-              placeholder={t.nav.searchPlaceholder}
-              aria-label={t.nav.searchPlaceholder}
+          {phoneHref ? (
+            <a
+              href={phoneHref}
               className={[
-                "min-w-0 flex-1 bg-transparent border-0 outline-none",
-                "font-label-caps text-[9px] tracking-[0.1em] uppercase",
-                searchTextClass,
+                "hidden sm:inline-flex h-7 w-7 items-center justify-center rounded-full border bg-transparent transition-all",
+                actionBorderClass,
+                actionTextClass,
+                actionHoverClass,
               ].join(" ")}
-            />
-          </label>
+              aria-label={t.nav.phoneAria}
+            >
+              <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
+            </a>
+          ) : (
+            <Link
+              to="/contact"
+              className={[
+                "hidden sm:inline-flex h-7 w-7 items-center justify-center rounded-full border bg-transparent transition-all",
+                actionBorderClass,
+                actionTextClass,
+                actionHoverClass,
+              ].join(" ")}
+              aria-label={t.nav.contactLinkAria}
+            >
+              <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
+            </Link>
+          )}
 
-          <LanguageToggle />
-
-          <a
-            href={phoneHref}
+          <Link
+            to="/contact"
             className={[
-              "hidden sm:inline-flex h-7 w-7 items-center justify-center rounded-full border bg-transparent transition-all",
-              actionBorderClass,
-              actionTextClass,
-              actionHoverClass,
+              "hidden lg:inline-flex items-center h-8 px-3 border font-label-caps text-[9px] tracking-[0.1em] uppercase transition-colors rounded-sm whitespace-nowrap",
+              ctaClass,
             ].join(" ")}
-            aria-label={t.nav.phoneAria}
           >
-            <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
-          </a>
+            {t.nav.planYourStay}
+          </Link>
+
+          {SHOW_LANGUAGE_TOGGLE ? (
+            <>
+              <div className="lg:hidden">
+                <LanguageToggle variant={isSolid ? "solid" : "overlay"} />
+              </div>
+              <div className="hidden lg:block">
+                <LanguageToggle variant={isSolid ? "solid" : "overlay"} />
+              </div>
+            </>
+          ) : null}
+
           <button
             type="button"
             onClick={() => setMobileOpen((open) => !open)}
-            className={`md:hidden p-2 rounded transition-colors cursor-pointer ${textClass}`}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className={`lg:hidden p-2 rounded transition-colors cursor-pointer ${textClass}`}
+            aria-label={mobileOpen ? t.nav.menuCloseAria : t.nav.menuOpenAria}
             aria-expanded={mobileOpen}
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -146,45 +171,39 @@ export default function Navbar({ activeTab, setActiveTab, inquiriesCount }: Navb
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-surface-container-high bg-surface shadow-lg">
+        <div className="lg:hidden border-t border-surface-container-high bg-surface shadow-lg max-h-[calc(100dvh-7rem)] overflow-y-auto">
           <nav className="flex flex-col px-4 py-4 gap-1 max-w-container-max mx-auto">
-            <button onClick={() => handleTab("discover")} className={`${navLinkClass("discover")} text-start py-3`}>
-              {t.nav.discover}
-            </button>
-            <button onClick={() => handleTab("planner")} className={`${navLinkClass("planner")} text-start py-3`}>
-              {t.nav.planner}
-            </button>
-            <button onClick={() => handleTab("inquiries")} className={`${navLinkClass("inquiries")} text-start py-3 relative`}>
-              {t.nav.inquiries}
-              {inquiriesCount > 0 && (
-                <span className="ms-2 bg-gold-main text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
-                  {inquiriesCount}
-                </span>
-              )}
-            </button>
-            <button onClick={() => handleTab("chat")} className={`${navLinkClass("chat")} text-start py-3`}>
-              {t.nav.chat}
-            </button>
+            {NAV_ROUTES.map((item) => (
+              <NavLink key={item.to} to={item.to} end={item.end} className={mobileNavLinkClass}>
+                {t.nav[item.labelKey]}
+              </NavLink>
+            ))}
             <div className="pt-3 mt-2 border-t border-surface-container-high flex flex-col gap-3">
-              <label className="flex h-8 w-1/2 max-w-[5rem] items-center gap-1.5 rounded-full border border-[#03777A] bg-transparent px-2.5">
-                <Search className="h-3 w-3 shrink-0 text-[#03777A] opacity-80" aria-hidden="true" />
-                <input
-                  type="search"
-                  placeholder={t.nav.searchPlaceholder}
-                  aria-label={t.nav.searchPlaceholder}
-                  className="min-w-0 flex-1 bg-transparent border-0 outline-none font-label-caps text-[9px] tracking-[0.1em] uppercase text-teal-dark-primary placeholder:text-teal-dark-primary/50"
-                />
-              </label>
-              <div className="flex items-center justify-between gap-3">
-                <LanguageToggle />
-                <a
-                  href={phoneHref}
-                  className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-[#03777A]/8"
-                  aria-label={t.nav.phoneAria}
-                >
-                  <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
-                </a>
+              <div className="flex items-center justify-end gap-3">
+                {phoneHref ? (
+                  <a
+                    href={phoneHref}
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-[#03777A]/8"
+                    aria-label={t.nav.phoneAria}
+                  >
+                    <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </a>
+                ) : (
+                  <Link
+                    to="/contact"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-[#03777A]/8"
+                    aria-label={t.nav.contactLinkAria}
+                  >
+                    <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
+                  </Link>
+                )}
               </div>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center h-10 px-4 border border-[#03777A] bg-[#03777A] text-white font-label-caps text-[10px] tracking-[0.1em] uppercase rounded-sm transition-colors hover:bg-teal-dark-hover"
+              >
+                {t.nav.planYourStay}
+              </Link>
             </div>
           </nav>
         </div>
