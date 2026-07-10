@@ -6,17 +6,10 @@ import {
   ArrowLeft,
   CheckCircle,
   MapPin,
-  ShieldCheck,
-  Award,
-  Compass,
-  Users,
-  UtensilsCrossed,
-  Milestone,
 } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import SectionCta from "../sections/SectionCta";
 import {
-  HERO_IMAGE,
   LOCATION_IMAGE,
   DINING_IMAGE,
   STARLIGHT_LOUNGE_IMAGE,
@@ -47,6 +40,10 @@ const CAROUSEL_IMAGE_SOURCES = [
   MISTY_MOUNTAIN_BALCONY_IMAGE,
 ] as const;
 
+const HERO_VIDEO = "/videos/hero.mp4";
+const HERO_VIDEO_MOBILE = "/videos/hero-mobile.mp4";
+const HERO_POSTER = "/videos/hero-poster.jpg";
+
 const EXPERIENCE_IMAGE_URLS = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuANK9rsm8K6n4iL8wxPtoOT7EYvCCAqOx4VTGvmHMhgu_KtvCByYw-Q-ggAGyAczCWMbtTPMUUAXFB7-7uNy2SmVAboJaL8pr2X4LCM7K9Y9KdISHfx4Xu_pilN_Ex_kte08-ayznqSyjJ-Cd6aRSucbjn6tuP1COj-Lls9X1r1tnTN0is1kDq6dXqH9SQ41cfvQzsxz5SubN4jXQV1ngBpzRdWm2OW7Tq7jJIkrad8kHJU_ak4PNPTySJb6Sr5qQ9bb3ueIih-TljQ",
   "https://lh3.googleusercontent.com/aida-public/AB6AXuD2hNA9HeAmj4BqPhOwLQC1eRoWfAxzou_4T_xg-zqlhGwXDqD5U0UyixRDImGgg5Gn8Wa4QpUwepAG-XVOA9TQTOiKv4sa14heW7Z7jEyTqdO_3D3bdH2g3jzU1Oybii8L2j4K6CHs4GTlaX1zDXD54D0zr3dJ4kNxecfKhWUTGFCyQb9CgQj5OqGzTCfZM88Fr3b5h9KIA8i37ASqmtHw_nXVmC8JXw8LpkZsbKRhs8uS_Yop9NVb1QFzc9Pmfu65i-dONxI4Ns48",
@@ -60,7 +57,18 @@ const FAMILY_HERO_IMAGE_URL =
 const SCROLL_STORY_IMAGE_URL =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuAHhiJI9dFLJE09IXZlRqxUtVw2lzV1Eb7psLz-A1KgwDQJtWlKZH_-_F0ufmr2_fnOjIBSbz9s1l5cAkPBRPPcph_7zwZeW8W2Jj4cNM_DXEsPaLTiOh4BhLS-F30KHtSGknSnVyO3_Br_LbKN9jHP_s5R88VtO42wQ-bpS6zRZOoG5kpnIywpxzYSYo9uNhxX7Z3aXmIsCsvImvGgDpby51qvHRwGEJxObq7_YBUOLkmu8M2K9-0kn0A5WVqgKnzM33d6pTKArXey";
 
-const PROMISE_ICONS = [UtensilsCrossed, Milestone, Users] as const;
+const TRUST_ICONS = [
+  "/images/icons/trust-kosher.png",
+  "/images/icons/trust-concierge.png",
+  "/images/icons/trust-transfers.png",
+  "/images/icons/trust-estate.png",
+] as const;
+
+const PROMISE_ICONS = [
+  "/images/icons/promise-kosher.png",
+  "/images/icons/promise-jewish-life.png",
+  "/images/icons/promise-family.png",
+] as const;
 
 const CAROUSEL_CARD_CLASS =
   "relative flex-none shrink-0 grow-0 overflow-hidden rounded shadow-xl group basis-[82.935vw] w-[82.935vw] min-w-[82.935vw] max-w-[82.935vw] md:basis-[768px] md:w-[768px] md:min-w-[768px] md:max-w-[768px] lg:basis-[943px] lg:w-[943px] lg:min-w-[943px] lg:max-w-[943px] h-[540px]";
@@ -78,6 +86,15 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
   const roomsCopy = t.pages.rooms;
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
   const { heroInitial, reduceMotion, carouselCard, staggerContainer } = usePremiumMotion();
+  const [heroVideoSrc, setHeroVideoSrc] = React.useState(HERO_VIDEO);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia("(max-width: 640px)");
+    const update = () => setHeroVideoSrc(mq.matches ? HERO_VIDEO_MOBILE : HERO_VIDEO);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const accentBorderClass =
     language === "he"
@@ -118,18 +135,32 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
           animate={{ scale: 1 }}
           transition={{ duration: 1.1, ease: LUXURY_EASE }}
         >
-          <OptimizedImage
-            src={HERO_IMAGE.src}
-            srcSet={HERO_IMAGE.srcSet}
-            sizes={HERO_IMAGE.sizes}
-            priority
-            alt={t.heroImageAlt}
-            className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-          />
+          {reduceMotion ? (
+            <img
+              src={HERO_POSTER}
+              alt={t.heroImageAlt}
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+              decoding="async"
+            />
+          ) : (
+            <video
+              key={heroVideoSrc}
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [transform:translateZ(0)]"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+              poster={HERO_POSTER}
+              aria-label={t.heroImageAlt}
+            >
+              <source src={heroVideoSrc} type="video/mp4" />
+            </video>
+          )}
         </motion.div>
 
-        <div className="absolute inset-0 bg-primary-container/10 z-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-container/30 via-transparent to-primary-container/15 z-0" />
+        <div className="absolute inset-0 bg-primary-container/5 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 via-transparent to-primary-container/10 z-0" />
 
         <div className="relative z-10 text-center px-6 md:px-0 max-w-4xl">
           <motion.span
@@ -203,26 +234,28 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
         </div>
 
         <StaggerGroup key={language} stagger={0.12} className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-          {t.promise.cards.map((card, index) => {
-            const Icon = PROMISE_ICONS[index];
-            const iconBg = index === 1 ? "bg-gold-main" : "bg-teal-fresh";
-            return (
+          {t.promise.cards.map((card, index) => (
               <StaggerItem
                 key={index}
                 className="bg-bg-card border border-border-custom p-10 flex flex-col items-center text-center group hover:border-gold-main hover:shadow-xl transition-all duration-500 rounded"
               >
-                <div
-                  className={`w-16 h-16 ${iconBg} flex items-center justify-center rounded-full mb-6 transition-colors shadow`}
-                >
-                  <Icon className="w-8 h-8 text-white" />
+                <div className="mb-6 flex justify-center">
+                  <img
+                    src={PROMISE_ICONS[index]}
+                    alt=""
+                    aria-hidden
+                    className="h-20 w-20 object-contain"
+                    width={80}
+                    height={80}
+                    decoding="async"
+                  />
                 </div>
                 <h3 className="font-headline-sm text-headline-sm text-text-main mb-4 group-hover:text-teal-dark-primary transition-colors">
                   {card.title}
                 </h3>
                 <p className="font-body-md text-body-md text-text-muted leading-relaxed">{card.body}</p>
               </StaggerItem>
-            );
-          })}
+          ))}
         </StaggerGroup>
       </section>
 
@@ -621,16 +654,19 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
           </FadeUp>
 
           <StaggerGroup stagger={0.12} className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { icon: Award, ...t.trust.stats[0] },
-              { icon: Compass, ...t.trust.stats[1] },
-              { icon: Users, ...t.trust.stats[2] },
-              { icon: ShieldCheck, ...t.trust.stats[3] },
-            ].map((stat) => (
+            {t.trust.stats.map((stat, index) => (
               <StaggerItem key={stat.label} className="border-r border-on-primary/10 last:border-0 pe-4 trust-stat-divider">
                 <SoftScale>
                   <div className="flex justify-center mb-3">
-                    <stat.icon className="w-8 h-8 text-secondary-fixed" />
+                    <img
+                      src={TRUST_ICONS[index]}
+                      alt=""
+                      aria-hidden
+                      className="h-16 w-16 md:h-[4.5rem] md:w-[4.5rem] object-contain"
+                      width={72}
+                      height={72}
+                      decoding="async"
+                    />
                   </div>
                 </SoftScale>
                 <h4 className="font-headline-sm text-2xl md:text-headline-sm text-secondary-fixed mb-2">{stat.value}</h4>

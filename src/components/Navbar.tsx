@@ -48,12 +48,14 @@ export default function Navbar() {
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     [
-      "font-label-caps text-[14px] pb-1 transition-all border-b-2 hover:opacity-100 tracking-[0.08em] uppercase whitespace-nowrap",
+      "font-label-caps text-[14px] leading-none inline-flex items-center transition-all hover:opacity-100 tracking-[0.08em] uppercase whitespace-nowrap",
       isActive
-        ? "border-gold-main opacity-100 font-semibold"
-        : "border-transparent opacity-70 hover:border-teal-ocean/40 hover:text-teal-ocean",
+        ? "opacity-100 font-semibold underline decoration-gold-main decoration-2 underline-offset-[6px]"
+        : "opacity-70 no-underline hover:text-teal-ocean hover:underline hover:decoration-teal-ocean/35 hover:underline-offset-[6px]",
       textClass,
     ].join(" ");
+
+  const navDividerClass = isSolid ? "bg-border-custom/60" : "bg-white/35";
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     [
@@ -66,10 +68,12 @@ export default function Navbar() {
   const phoneHref = HAS_REAL_PHONE ? `tel:${t.nav.phone.replace(/[^\d+]/g, "")}` : null;
   const actionBorderClass = isSolid ? "border-[#03777A]" : "border-white/45";
   const actionTextClass = isSolid ? "text-[#03777A]" : "text-white";
-  const actionHoverClass = isSolid ? "hover:bg-[#03777A]/8" : "hover:bg-white/10";
+  const actionHoverClass = isSolid
+    ? "hover:bg-bg-aqua hover:text-teal-ocean hover:border-teal-ocean"
+    : "hover:bg-teal-ocean hover:text-white hover:border-teal-ocean";
   const ctaClass = isSolid
     ? "bg-teal-ocean text-white hover:bg-teal-dark-hover border-teal-ocean"
-    : "border-white/45 text-white hover:bg-white/10 bg-transparent";
+    : "border-white/45 text-white bg-transparent hover:bg-teal-ocean hover:border-teal-ocean hover:text-white";
 
   return (
     <header
@@ -100,11 +104,22 @@ export default function Navbar() {
           />
         </NavLink>
 
-        <nav className="hidden lg:flex items-center gap-2 xl:gap-3 2xl:gap-4">
-          {NAV_ROUTES.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} className={navLinkClass}>
-              {t.nav[item.labelKey]}
-            </NavLink>
+        <nav className="hidden lg:flex items-center">
+          {NAV_ROUTES.map((item, index) => (
+            <div key={item.to} className="flex items-center">
+              {index > 0 ? (
+                <span
+                  aria-hidden
+                  className={[
+                    "mx-2.5 xl:mx-3.5 h-[14px] w-px shrink-0",
+                    navDividerClass,
+                  ].join(" ")}
+                />
+              ) : null}
+              <NavLink to={item.to} end={item.end} className={navLinkClass}>
+                {t.nav[item.labelKey]}
+              </NavLink>
+            </div>
           ))}
         </nav>
 
@@ -183,7 +198,7 @@ export default function Navbar() {
                 {phoneHref ? (
                   <a
                     href={phoneHref}
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-[#03777A]/8"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-bg-aqua hover:text-teal-ocean hover:border-teal-ocean"
                     aria-label={t.nav.phoneAria}
                   >
                     <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
@@ -191,7 +206,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     to="/contact"
-                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-[#03777A]/8"
+                    className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-[#03777A] bg-transparent text-[#03777A] transition-colors hover:bg-bg-aqua hover:text-teal-ocean hover:border-teal-ocean"
                     aria-label={t.nav.contactLinkAria}
                   >
                     <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
