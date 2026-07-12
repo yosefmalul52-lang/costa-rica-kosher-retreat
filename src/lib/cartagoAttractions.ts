@@ -1,17 +1,17 @@
 /** Cartago-area attraction images (Wikimedia Commons, stored locally). */
 export const cartagoAttractionImages = {
-  irazu: "/images/cartago-attractions/irazu-volcano.jpg",
-  turrialba: "/images/cartago-attractions/turrialba-volcano.jpg",
-  orosiValley: "/images/cartago-attractions/orosi-valley.jpg",
-  basilica: "/images/cartago-attractions/basilica-cartago.jpg",
-  lankester: "/images/cartago-attractions/lankester-garden.jpg",
-  guayabo: "/images/cartago-attractions/guayabo.jpg",
-  ujarras: "/images/cartago-attractions/ujarras-ruins.jpg",
-  lakeCachi: "/images/cartago-attractions/lake-cachi.jpg",
-  orosiChurch: "/images/cartago-attractions/orosi-church.jpg",
-  lasRuinas: "/images/cartago-attractions/las-ruinas-cartago.jpg",
-  tapanti: "/images/cartago-attractions/tapanti-park.jpg",
-  catie: "/images/cartago-attractions/catie-turrialba.jpg",
+  irazu: "/images/cartago-attractions/irazu-volcano.webp",
+  turrialba: "/images/cartago-attractions/turrialba-volcano.webp",
+  orosiValley: "/images/cartago-attractions/orosi-valley.webp",
+  basilica: "/images/cartago-attractions/basilica-cartago.webp",
+  lankester: "/images/cartago-attractions/lankester-garden.webp",
+  guayabo: "/images/cartago-attractions/guayabo.webp",
+  ujarras: "/images/cartago-attractions/ujarras-ruins.webp",
+  lakeCachi: "/images/cartago-attractions/lake-cachi.webp",
+  orosiChurch: "/images/cartago-attractions/orosi-church.webp",
+  lasRuinas: "/images/cartago-attractions/las-ruinas-cartago.webp",
+  tapanti: "/images/cartago-attractions/tapanti-park.webp",
+  catie: "/images/cartago-attractions/catie-turrialba.webp",
 } as const;
 
 export type CartagoAttractionId = keyof typeof cartagoAttractionImages;

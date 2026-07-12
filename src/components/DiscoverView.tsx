@@ -361,7 +361,7 @@ export default function DiscoverView({ onStartPlanning, onExploreRoom }: Discove
             <SoftScale className="flex justify-center">
               <ImageReveal className="relative aspect-square w-full max-w-[450px] shrink-0 overflow-hidden rounded-full border-8 border-[#03777A] shadow-2xl">
                 <OptimizedImage
-                  src="/images/jewish-life-shabbat-table.png"
+                  src="/images/jewish-life-shabbat-table.webp"
                   alt={t.jewishLife.imageAlt}
                   className="absolute inset-0 h-full w-full scale-[1.06] object-cover object-center"
                 />

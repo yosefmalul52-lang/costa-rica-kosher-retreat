@@ -7,6 +7,8 @@ interface OptimizedImageProps {
   className?: string;
   srcSet?: string;
   sizes?: string;
+  width?: number;
+  height?: number;
   priority?: boolean;
   loading?: "eager" | "lazy";
   decoding?: "sync" | "async" | "auto";
@@ -19,6 +21,8 @@ export default function OptimizedImage({
   src,
   srcSet,
   sizes,
+  width,
+  height,
   priority = false,
   className = "",
   alt,
@@ -36,6 +40,8 @@ export default function OptimizedImage({
       src={optimizedSrc}
       srcSet={srcSet}
       sizes={sizes}
+      width={width}
+      height={height}
       alt={alt}
       loading={loading ?? (priority ? "eager" : "lazy")}
       decoding={decoding ?? (priority ? "sync" : "async")}

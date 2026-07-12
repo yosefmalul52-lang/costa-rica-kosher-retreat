@@ -52,12 +52,12 @@ export default function HolidaysPage() {
 
       <section className="py-14 md:py-24 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-10 md:mb-14">
-          <FadeUp>
+          <FadeUp eager>
             <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-4 leading-tight">
               {copy.intro.title}
             </h2>
           </FadeUp>
-          <FadeUp delay={0.08}>
+          <FadeUp delay={0.08} eager>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">{copy.intro.body}</p>
           </FadeUp>
         </div>
@@ -72,7 +72,7 @@ export default function HolidaysPage() {
               body: copy.pathways.pesach.body,
               cta: copy.pathways.pesach.cta,
               image: {
-                src: "/images/holidays/pesach-retreat.jpg",
+                src: "/images/holidays/pesach-retreat.webp",
                 alt: copy.pathways.pesach.imageAlt,
                 objectPosition: "center center",
               },
@@ -87,7 +87,7 @@ export default function HolidaysPage() {
               body: copy.pathways.sukkot.body,
               cta: copy.pathways.sukkot.cta,
               image: {
-                src: "/images/holidays/sukkot-retreat.jpg",
+                src: "/images/holidays/sukkot-retreat.webp",
                 alt: copy.pathways.sukkot.imageAlt,
                 objectPosition: "center center",
               },
@@ -102,7 +102,7 @@ export default function HolidaysPage() {
               body: copy.pathways.yearRound.body,
               cta: copy.pathways.yearRound.cta,
               image: {
-                src: "/images/holidays/year-round-stay.jpg",
+                src: "/images/holidays/year-round-stay.webp",
                 alt: copy.pathways.yearRound.imageAlt,
                 objectPosition: "center center",
               },

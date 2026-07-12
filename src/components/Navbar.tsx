@@ -199,18 +199,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 md:gap-3 shrink-0">
-          <Link
-            to="/contact"
-            className={[
-              "hidden md:inline-flex items-center px-3.5 py-2 border font-label-caps text-[11px] uppercase tracking-[0.12em] rounded-sm transition-colors",
-              actionBorderClass,
-              actionTextClass,
-              actionHoverClass,
-            ].join(" ")}
-          >
-            {t.nav.planYourStay}
-          </Link>
-
           {phoneHref ? (
             <a
               href={phoneHref}
@@ -304,12 +292,6 @@ export default function Navbar() {
               </NavLink>
             ))}
 
-            <Link
-              to="/contact"
-              className="mt-3 mb-1 inline-flex justify-center bg-primary text-on-primary hover:bg-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
-            >
-              {t.nav.planYourStay}
-            </Link>
             <div className="pt-2 pb-1 border-t border-surface-container-high flex items-center justify-end gap-3">
               {phoneHref ? (
                 <a

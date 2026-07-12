@@ -5,10 +5,7 @@ import {
   ArrowRight,
   ArrowLeft,
   CheckCircle,
-  HeartHandshake,
   MapPin,
-  Mountain,
-  UsersRound,
 } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import SectionCta from "../sections/SectionCta";
@@ -45,23 +42,21 @@ const CAROUSEL_IMAGE_SOURCES = [
   MISTY_MOUNTAIN_BALCONY_IMAGE,
 ] as const;
 
-const HERO_VIDEO = "/videos/hero.mp4";
-const HERO_VIDEO_MOBILE = "/videos/hero-mobile.mp4";
-const HERO_POSTER = "/videos/hero-poster.jpg";
+/** Optimized web deliveries — originals kept as hero.mp4 / hero-mobile.mp4 / hero-poster.jpg */
+const HERO_VIDEO = "/videos/hero-web.mp4";
+const HERO_VIDEO_MOBILE = "/videos/hero-mobile-web.mp4";
+const HERO_POSTER = "/videos/hero-poster-web.webp";
 
+/** Local WebP of the pre-optimization remote images (same visuals, no hotlinks). */
 const EXPERIENCE_IMAGE_URLS = [
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuANK9rsm8K6n4iL8wxPtoOT7EYvCCAqOx4VTGvmHMhgu_KtvCByYw-Q-ggAGyAczCWMbtTPMUUAXFB7-7uNy2SmVAboJaL8pr2X4LCM7K9Y9KdISHfx4Xu_pilN_Ex_kte08-ayznqSyjJ-Cd6aRSucbjn6tuP1COj-Lls9X1r1tnTN0is1kDq6dXqH9SQ41cfvQzsxz5SubN4jXQV1ngBpzRdWm2OW7Tq7jJIkrad8kHJU_ak4PNPTySJb6Sr5qQ9bb3ueIih-TljQ",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuD2hNA9HeAmj4BqPhOwLQC1eRoWfAxzou_4T_xg-zqlhGwXDqD5U0UyixRDImGgg5Gn8Wa4QpUwepAG-XVOA9TQTOiKv4sa14heW7Z7jEyTqdO_3D3bdH2g3jzU1Oybii8L2j4K6CHs4GTlaX1zDXD54D0zr3dJ4kNxecfKhWUTGFCyQb9CgQj5OqGzTCfZM88Fr3b5h9KIA8i37ASqmtHw_nXVmC8JXw8LpkZsbKRhs8uS_Yop9NVb1QFzc9Pmfu65i-dONxI4Ns48",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuC_v3ha99zBFSjQZsZlsg0p_pNYNbZhG1k3GBL4n_7XWqjSl8Yq1B8uvvr-UUy2rnJ1PUj7Ohy2UWUBakA0dAtH6jxyTx8ohBzA4Xi7hVoaSuI-ERr1hdV4qn_8KL4toFiXeW3NHDQbp7lE0-yxR2oyxRt0uijKu4-1lcUqlrkObsK8ZZi2b536DBNAJMfNYeSUlinHzSkwTL-wk6DSole-AzuR6Ko2pJ1bRgh0NLXFe_aUTV0ePlwkVhgvH3coeTONwJBTARtyClUf",
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBW57tk1v5yYmILjD_TFfPcoSqflF_I1DJ6gz9AdAdu_KSHbd-faNxN5qDhJ3_BvicK3FogMPsUCvIKQxuTRxtQ9IJ3wtyDg0U8qXkJWu-nPrMAunOxWx0Q5xJ3vCB2a_hwXKvQP0YkvrIbQn4gyet4IdC-Ol3o_L4C482SiJ3tD7F2UZAFUYdtH0yIZHPLwMpkn-1Y_D6N8TFVEaSuuCJ6EcAWEGmB9k6ke9PG4JZnhLsmpO8GPjK7dXzN8iZLPe8xNmPA5uFlP7b3",
+  "/images/home-originals/experience-1.webp",
+  "/images/home-originals/experience-2.webp",
+  "/images/home-originals/experience-3.webp",
+  "/images/home-originals/experience-4.webp",
 ] as const;
 
-const FAMILY_HERO_IMAGE_URL =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuBYCbq3xEJyV_ctfeY9M-25oFmbgyPBpIFL5Z__BVPBWSQ92FdeaMbm-ag-F27AYaVLnNMUGL96ZL2FYdiw5Os-88HhWIo9wAobFhSOa7xsYfTSx1hFRTfaPmA4wR7N7U04xtdpRNvFQvdShyHaXBqjcoyd6hjDtDAMGRqAnjzkVGG_M_40c2EKdvbokeClZen_LRWLvcgcpyDAprKoQDXyK8MgsSOUpztraWHuQLt2VEQQtoEaRlCVIyVahbv_MmM0p8s0cQN8vXH7";
-
-const SCROLL_STORY_IMAGE_URL =
-  "https://lh3.googleusercontent.com/aida-public/AB6AXuAHhiJI9dFLJE09IXZlRqxUtVw2lzV1Eb7psLz-A1KgwDQJtWlKZH_-_F0ufmr2_fnOjIBSbz9s1l5cAkPBRPPcph_7zwZeW8W2Jj4cNM_DXEsPaLTiOh4BhLS-F30KHtSGknSnVyO3_Br_LbKN9jHP_s5R88VtO42wQ-bpS6zRZOoG5kpnIywpxzYSYo9uNhxX7Z3aXmIsCsvImvGgDpby51qvHRwGEJxObq7_YBUOLkmu8M2K9-0kn0A5WVqgKnzM33d6pTKArXey";
-
+const FAMILY_HERO_IMAGE_URL = "/images/home-originals/family-hero.webp";
+const SCROLL_STORY_IMAGE_URL = "/images/home-originals/scroll-story.webp";
 const TRUST_ICONS = [
   "/images/icons/trust-kosher.png",
   "/images/icons/trust-concierge.png",
@@ -69,7 +64,11 @@ const TRUST_ICONS = [
   "/images/icons/trust-estate.png",
 ] as const;
 
-const INTRO_VALUE_ICONS = [HeartHandshake, Mountain, UsersRound] as const;
+const INTRO_VALUE_ICONS = [
+  "/images/icons/value-kosher-jewish-life.png",
+  "/images/icons/value-mountain-hospitality.png",
+  "/images/icons/value-family-retreat.png",
+] as const;
 
 const PROMISE_ICONS = [
   "/images/icons/promise-kosher.png",
@@ -91,6 +90,8 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
   const { t, language } = useLanguage();
   const home = t.pages.home;
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const heroSectionRef = React.useRef<HTMLElement>(null);
+  const heroVideoRef = React.useRef<HTMLVideoElement>(null);
   const { heroInitial, reduceMotion, carouselCard, staggerContainer } = usePremiumMotion();
   const [heroVideoSrc, setHeroVideoSrc] = React.useState(HERO_VIDEO);
 
@@ -102,6 +103,26 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  React.useEffect(() => {
+    if (reduceMotion) return;
+    const section = heroSectionRef.current;
+    const video = heroVideoRef.current;
+    if (!section || !video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+          void video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: [0, 0.2, 0.5] },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, [reduceMotion, heroVideoSrc]);
   const accentBorderClass =
     language === "he"
       ? "border-r-4 border-secondary ps-0 pe-6 rounded-l"
@@ -134,7 +155,10 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
   return (
     <div className="bg-surface select-text">
       {/* 1. Hero Section */}
-      <section className="relative min-h-[100dvh] h-auto w-full flex items-center justify-center overflow-hidden py-28 sm:py-0 sm:h-screen">
+      <section
+        ref={heroSectionRef}
+        className="relative min-h-[100dvh] h-auto w-full flex items-center justify-center overflow-hidden py-28 sm:py-0 sm:h-screen"
+      >
         <motion.div
           className="absolute inset-0"
           initial={heroInitial({ scale: 1.04 })}
@@ -145,18 +169,22 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             <img
               src={HERO_POSTER}
               alt={t.heroImageAlt}
+              width={1080}
+              height={1080}
               className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [filter:brightness(0.78)_contrast(1.05)]"
-              decoding="async"
+              decoding="sync"
+              fetchPriority="high"
             />
           ) : (
             <video
               key={heroVideoSrc}
+              ref={heroVideoRef}
               className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [transform:translateZ(0)] [filter:brightness(0.78)_contrast(1.05)]"
               autoPlay
               muted
               loop
               playsInline
-              preload="auto"
+              preload="metadata"
               poster={HERO_POSTER}
               aria-label={t.heroImageAlt}
             >
@@ -270,7 +298,6 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             className="grid grid-cols-1 md:grid-cols-3 max-w-5xl mx-auto"
           >
             {home.intro.values.map((value, index) => {
-              const Icon = INTRO_VALUE_ICONS[index];
               return (
                 <StaggerItem
                   key={value.title}
@@ -281,10 +308,14 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                       : "",
                   ].join(" ")}
                 >
-                  <Icon
-                    className="mb-5 h-5 w-5 text-secondary-fixed transition-transform duration-300 ease-out group-hover:-translate-y-1"
-                    strokeWidth={1.35}
+                  <img
+                    src={INTRO_VALUE_ICONS[index]}
+                    alt=""
                     aria-hidden
+                    width={48}
+                    height={48}
+                    decoding="async"
+                    className="mb-5 h-11 w-11 sm:h-12 sm:w-12 object-contain select-none pointer-events-none transition-transform duration-300 ease-out group-hover:-translate-y-1"
                   />
                   <h3 className="font-headline-sm text-[1.15rem] sm:text-xl text-on-primary-container mb-3 leading-snug">
                     {value.title}
@@ -348,7 +379,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                 body: t.pages.holidays.pathways.pesach.body,
                 cta: t.pages.holidays.pathways.pesach.cta,
                 image: {
-                  src: "/images/holidays/pesach-retreat.jpg",
+                  src: "/images/holidays/pesach-retreat.webp",
                   alt: t.pages.holidays.pathways.pesach.imageAlt,
                   objectPosition: "center center",
                 },
@@ -363,7 +394,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                 body: t.pages.holidays.pathways.sukkot.body,
                 cta: t.pages.holidays.pathways.sukkot.cta,
                 image: {
-                  src: "/images/holidays/sukkot-retreat.jpg",
+                  src: "/images/holidays/sukkot-retreat.webp",
                   alt: t.pages.holidays.pathways.sukkot.imageAlt,
                   objectPosition: "center center",
                 },
@@ -378,7 +409,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                 body: t.pages.holidays.pathways.yearRound.body,
                 cta: t.pages.holidays.pathways.yearRound.cta,
                 image: {
-                  src: "/images/holidays/year-round-stay.jpg",
+                  src: "/images/holidays/year-round-stay.webp",
                   alt: t.pages.holidays.pathways.yearRound.imageAlt,
                   objectPosition: "center center",
                 },
@@ -386,18 +417,45 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             />
           </StaggerGroup>
 
-          {/* Promise pillars — one panel with vertical dividers */}
+          {/* Promise pillars — one panel with tapered dividers */}
           <FadeUp className="mt-10 md:mt-14">
             <div className="bg-bg-card border border-border-custom rounded overflow-hidden">
               <div className="grid grid-cols-1 md:grid-cols-3">
                 {t.promise.cards.map((card, index) => (
                   <div
                     key={card.title}
-                    className={[
-                      "flex flex-col items-center text-center p-6 sm:p-8 md:p-10",
-                      index > 0 ? "border-t md:border-t-0 md:border-s border-border-custom" : "",
-                    ].join(" ")}
+                    className="relative flex flex-col items-center text-center p-6 sm:p-8 md:p-10"
                   >
+                    {index > 0 ? (
+                      <>
+                        {/* Mobile: horizontal tapered rule */}
+                        <span
+                          aria-hidden
+                          className="pointer-events-none md:hidden absolute inset-x-[16%] top-0 h-[2px] -translate-y-1/2 bg-secondary/45"
+                          style={{
+                            clipPath:
+                              "polygon(0% 50%, 12% 15%, 50% 0%, 88% 15%, 100% 50%, 88% 85%, 50% 100%, 12% 85%)",
+                            maskImage:
+                              "linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%)",
+                            WebkitMaskImage:
+                              "linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%)",
+                          }}
+                        />
+                        {/* Desktop: vertical tapered rule */}
+                        <span
+                          aria-hidden
+                          className="pointer-events-none hidden md:block absolute inset-y-[14%] start-0 w-[3px] -translate-x-1/2 bg-secondary/45"
+                          style={{
+                            clipPath:
+                              "polygon(50% 0%, 85% 12%, 100% 50%, 85% 88%, 50% 100%, 15% 88%, 0% 50%, 15% 12%)",
+                            maskImage:
+                              "linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%)",
+                            WebkitMaskImage:
+                              "linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%)",
+                          }}
+                        />
+                      </>
+                    ) : null}
                     <div className="mb-5 md:mb-6 flex justify-center">
                       <img
                         src={PROMISE_ICONS[index]}
@@ -591,16 +649,20 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
           </div>
           <FadeUp delay={0.18} className="flex gap-3 sm:gap-4 shrink-0">
             <button
+              type="button"
               onClick={() => scroll("left")}
+              aria-label={language === "he" ? "גלול ימינה" : "Scroll left"}
               className="btn-premium-hover min-h-11 min-w-11 inline-flex items-center justify-center border border-on-primary/30 text-on-primary rounded-full hover:bg-on-primary hover:text-primary transition-all cursor-pointer"
             >
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5" aria-hidden />
             </button>
             <button
+              type="button"
               onClick={() => scroll("right")}
+              aria-label={language === "he" ? "גלול שמאלה" : "Scroll right"}
               className="btn-premium-hover min-h-11 min-w-11 inline-flex items-center justify-center border border-on-primary/30 text-on-primary rounded-full hover:bg-on-primary hover:text-primary transition-all cursor-pointer"
             >
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5" aria-hidden />
             </button>
           </FadeUp>
         </div>
@@ -704,44 +766,6 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
         <FadeUp className="text-center">
           <SectionCta to="/costa-rica-guide" label={home.links.viewExperiences} />
         </FadeUp>
-      </section>
-
-      {/* 10. Rooms teaser */}
-      <section className="bg-surface-container py-16 md:py-24" id="rooms">
-        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
-          <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
-            <SplitImage side="start" className="w-full lg:w-1/2">
-              <ImageReveal className="aspect-[16/11] rounded shadow-xl overflow-hidden">
-                <OptimizedImage
-                  src={hotelGallery.privateVillaGardenEntrance.src}
-                  alt={home.previews.rooms.imageAlt}
-                  className="w-full h-full object-cover"
-                  style={{ objectPosition: hotelGallery.privateVillaGardenEntrance.objectPosition }}
-                />
-              </ImageReveal>
-            </SplitImage>
-            <SplitText side="end" className="w-full lg:w-1/2 text-center lg:text-start">
-              <FadeUp>
-                <span className="font-label-caps text-[11px] uppercase tracking-[0.22em] text-secondary mb-3 block">
-                  {home.previews.rooms.eyebrow}
-                </span>
-              </FadeUp>
-              <FadeUp delay={0.06}>
-                <h2 className="font-headline-lg text-headline-lg text-primary mb-4 leading-tight">
-                  {home.previews.rooms.title}
-                </h2>
-              </FadeUp>
-              <FadeUp delay={0.1}>
-                <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                  {home.previews.rooms.body}
-                </p>
-              </FadeUp>
-              <FadeUp delay={0.14}>
-                <SectionCta to="/rooms" label={home.links.exploreRooms} />
-              </FadeUp>
-            </SplitText>
-          </div>
-        </div>
       </section>
 
       {/* 12. Trust Section */}

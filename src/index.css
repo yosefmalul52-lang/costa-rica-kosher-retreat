@@ -248,6 +248,24 @@ body {
   }
 }
 
+/* Accessible keyboard focus — does not change resting visuals */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-secondary) 70%, transparent);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-secondary) 70%, transparent);
+  outline-offset: 2px;
+}
+
 @layer components {
   .editorial-collage {
     --editorial-torn: polygon(

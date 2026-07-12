@@ -10,7 +10,7 @@ const GALLERY_BASE = "/images/hotel-gallery";
 
 export const hotelGallery = {
   palmCanopyEntrance: {
-    src: `${GALLERY_BASE}/palm-canopy-entrance-driveway.jpg`,
+    src: `${GALLERY_BASE}/palm-canopy-entrance-driveway.webp`,
     alt: {
       en: "Private palm-lined entrance driveway at a luxury mountain retreat",
       he: "שביל כניסה פרטי מוקף דקלים בריטריט יוקרתי בהרים",
@@ -18,7 +18,7 @@ export const hotelGallery = {
     objectPosition: "center 40%",
   },
   tropicalResortArrival: {
-    src: `${GALLERY_BASE}/tropical-resort-arrival-driveway.jpg`,
+    src: `${GALLERY_BASE}/tropical-resort-arrival-driveway.webp`,
     alt: {
       en: "Tropical resort arrival driveway through lush palm gardens",
       he: "שביל הגעה לריזורט טרופי בין גני דקלים ירוקים",
@@ -26,7 +26,7 @@ export const hotelGallery = {
     objectPosition: "center center",
   },
   rainforestDiningPavilion: {
-    src: `${GALLERY_BASE}/rainforest-dining-pavilion.jpg`,
+    src: `${GALLERY_BASE}/rainforest-dining-pavilion.webp`,
     alt: {
       en: "Rainforest dining pavilion with warm lighting and tropical surroundings",
       he: "פאביליון אוכל ביער הגשם עם תאורה חמה וסביבה טרופית",
@@ -34,7 +34,7 @@ export const hotelGallery = {
     objectPosition: "center 35%",
   },
   jungleVerandaMountainView: {
-    src: `${GALLERY_BASE}/jungle-veranda-mountain-view.jpg`,
+    src: `${GALLERY_BASE}/jungle-veranda-mountain-view.webp`,
     alt: {
       en: "Wooden veranda overlooking lush jungle valleys and mountain horizons",
       he: "ורנדה מעץ עם נוף לעמקי ג'ונגל ירוקים ואופק הררי",
@@ -42,7 +42,7 @@ export const hotelGallery = {
     objectPosition: "center center",
   },
   privateVillaGardenEntrance: {
-    src: `${GALLERY_BASE}/private-villa-garden-entrance.jpg`,
+    src: `${GALLERY_BASE}/private-villa-garden-entrance.webp`,
     alt: {
       en: "Private white villa entrance with manicured tropical garden",
       he: "כניסה לווילה לבנה פרטית עם גינה טרופית מטופחת",
@@ -50,7 +50,7 @@ export const hotelGallery = {
     objectPosition: "center 30%",
   },
   luxuryVillaGardenPathway: {
-    src: `${GALLERY_BASE}/luxury-villa-garden-pathway.jpg`,
+    src: `${GALLERY_BASE}/luxury-villa-garden-pathway.webp`,
     alt: {
       en: "Stone pathway between luxury villas in a tropical mountain garden",
       he: "שביל אבן בין וילות יוקרה בגינה טרופית בהרים",
@@ -58,7 +58,7 @@ export const hotelGallery = {
     objectPosition: "center center",
   },
   tropicalPoolRetreat: {
-    src: `${GALLERY_BASE}/tropical-pool-retreat.jpg`,
+    src: `${GALLERY_BASE}/tropical-pool-retreat.webp`,
     alt: {
       en: "Secluded tropical pool surrounded by rainforest greenery",
       he: "בריכה טרופית מבודדת מוקפת בצמחייה של יער הגשם",
@@ -66,7 +66,7 @@ export const hotelGallery = {
     objectPosition: "center 40%",
   },
   kosherOutdoorDiningTerrace: {
-    src: `${GALLERY_BASE}/kosher-outdoor-dining-terrace.jpg`,
+    src: `${GALLERY_BASE}/kosher-outdoor-dining-terrace.webp`,
     alt: {
       en: "Outdoor kosher dining terrace with lantern light and rainforest views",
       he: "מרפסת אוכל כשר חיצונית עם תאורת פנסים ונוף ליער הגשם",
@@ -74,7 +74,7 @@ export const hotelGallery = {
     objectPosition: "center center",
   },
   rainforestCoveredWalkway: {
-    src: `${GALLERY_BASE}/rainforest-covered-walkway.jpg`,
+    src: `${GALLERY_BASE}/rainforest-covered-walkway.webp`,
     alt: {
       en: "Covered wooden walkway through a tranquil Costa Rica rainforest",
       he: "גשר מקורה מעץ בשביל שקט ביער הגשם של קוסטה ריקה",
@@ -82,7 +82,7 @@ export const hotelGallery = {
     objectPosition: "center center",
   },
   tropicalJungleWaterfall: {
-    src: `${GALLERY_BASE}/tropical-jungle-waterfall.jpg`,
+    src: `${GALLERY_BASE}/tropical-jungle-waterfall.webp`,
     alt: {
       en: "Hidden tropical waterfall in a lush Costa Rica jungle",
       he: "מפל טרופי נסתר ביער הגשם הפורה של קוסטה ריקה",

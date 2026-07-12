@@ -1,36 +1,44 @@
-import { Navigate } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense, type ReactNode } from "react";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import SiteLayout from "./components/layout/SiteLayout";
-import HomePage from "./pages/HomePage";
-import RoomsPage from "./pages/RoomsPage";
-import HolidaysPage from "./pages/HolidaysPage";
-import PesachPage from "./pages/PesachPage";
-import SukkotPage from "./pages/SukkotPage";
-import YearRoundPage from "./pages/YearRoundPage";
-import KosherJewishLifePage from "./pages/KosherJewishLifePage";
-import CostaRicaGuidePage from "./pages/CostaRicaGuidePage";
-import FaqPage from "./pages/FaqPage";
-import ContactPage from "./pages/ContactPage";
+import RouteFallback from "./components/routing/RouteFallback";
+
+const HomePage = lazy(() => import("./pages/HomePage"));
+const RoomsPage = lazy(() => import("./pages/RoomsPage"));
+const HolidaysPage = lazy(() => import("./pages/HolidaysPage"));
+const PesachPage = lazy(() => import("./pages/PesachPage"));
+const SukkotPage = lazy(() => import("./pages/SukkotPage"));
+const YearRoundPage = lazy(() => import("./pages/YearRoundPage"));
+const KosherJewishLifePage = lazy(() => import("./pages/KosherJewishLifePage"));
+const CostaRicaGuidePage = lazy(() => import("./pages/CostaRicaGuidePage"));
+const FaqPage = lazy(() => import("./pages/FaqPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+
+function LazyPage({ children }: { children: ReactNode }) {
+  return <Suspense fallback={<RouteFallback />}>{children}</Suspense>;
+}
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <SiteLayout />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "rooms", element: <RoomsPage /> },
-      { path: "holidays", element: <HolidaysPage /> },
-      { path: "pesach", element: <PesachPage /> },
-      { path: "sukkot", element: <SukkotPage /> },
-      { path: "year-round", element: <YearRoundPage /> },
-      { path: "kosher-jewish-life", element: <KosherJewishLifePage /> },
-      { path: "costa-rica-guide", element: <CostaRicaGuidePage /> },
-      { path: "faq", element: <FaqPage /> },
-      { path: "contact", element: <ContactPage /> },
+      { index: true, element: <LazyPage><HomePage /></LazyPage> },
+      { path: "rooms", element: <LazyPage><RoomsPage /></LazyPage> },
+      { path: "holidays", element: <LazyPage><HolidaysPage /></LazyPage> },
+      { path: "pesach", element: <LazyPage><PesachPage /></LazyPage> },
+      { path: "sukkot", element: <LazyPage><SukkotPage /></LazyPage> },
+      { path: "year-round", element: <LazyPage><YearRoundPage /></LazyPage> },
+      { path: "kosher-jewish-life", element: <LazyPage><KosherJewishLifePage /></LazyPage> },
+      { path: "costa-rica-guide", element: <LazyPage><CostaRicaGuidePage /></LazyPage> },
+      { path: "faq", element: <LazyPage><FaqPage /></LazyPage> },
+      { path: "contact", element: <LazyPage><ContactPage /></LazyPage> },
       { path: "dining-kashrut", element: <Navigate to="/kosher-jewish-life" replace /> },
       { path: "jewish-life", element: <Navigate to="/kosher-jewish-life" replace /> },
       { path: "experiences", element: <Navigate to="/costa-rica-guide" replace /> },
       { path: "plan-your-stay", element: <Navigate to="/contact" replace /> },
+      { path: "*", element: <LazyPage><NotFoundPage /></LazyPage> },
     ],
   },
 ]);

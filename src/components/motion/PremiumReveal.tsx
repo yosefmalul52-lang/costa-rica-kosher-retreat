@@ -12,7 +12,20 @@ type RevealProps = HTMLMotionProps<"div"> & {
 function useRevealInView(eager = false) {
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, SCROLL_VIEWPORT);
-  return { ref, isInView: eager || isInView };
+  const [shown, setShown] = React.useState(eager);
+
+  React.useEffect(() => {
+    if (eager || isInView) setShown(true);
+  }, [eager, isInView]);
+
+  // Safety net: never leave content stuck at opacity 0 if IO never fires
+  React.useEffect(() => {
+    if (shown) return;
+    const id = window.setTimeout(() => setShown(true), 3500);
+    return () => window.clearTimeout(id);
+  }, [shown]);
+
+  return { ref, isInView: shown };
 }
 
 export function FadeUp({ children, className, delay = 0, withBlur = false, eager = false, ...rest }: RevealProps) {

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import {
-  HeartHandshake,
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
   Map,
-  Mountain,
-  Utensils,
   UsersRound,
+  UtensilsCrossed,
 } from "lucide-react";
 import { motion } from "motion/react";
 import OptimizedImage from "../components/OptimizedImage";
@@ -24,64 +25,65 @@ import { LUXURY_EASE, usePremiumMotion } from "../lib/motionPresets";
 const PESACH_BASE = "/images/pesach";
 
 const HERO_IMAGE = {
-  src: `${PESACH_BASE}/pesach-hero-resort.png`,
+  src: `${PESACH_BASE}/pesach-hero-resort.webp`,
   altEn: "Luxury Passover resort in Costa Rica",
   altHe: "ריזורט יוקרתי לפסח בקוסטה ריקה",
   objectPosition: "center center",
 };
 
-const RIBO_IMAGE = `${PESACH_BASE}/ishay-ribo-live.jpg`;
+const RIBO_IMAGE = `${PESACH_BASE}/ishay-ribo-live.webp`;
 
-const HIGHLIGHT_ICONS = [Utensils, HeartHandshake, UsersRound, Map] as const;
+const HIGHLIGHT_ICONS = [UtensilsCrossed, BookOpen, UsersRound, Map] as const;
+const HIGHLIGHT_ICON_STROKE = 1.35;
 
 const ACTIVITY_MEDIA: Record<
   string,
   { src: string; altEn: string; altHe: string; objectPosition?: string }
 > = {
   waterfall: {
-    src: `${PESACH_BASE}/waterfall-hikes.png`,
+    src: `${PESACH_BASE}/waterfall-hikes.webp`,
     altEn: "Tropical waterfall excursion in Costa Rica",
     altHe: "טיול למפל טרופי בקוסטה ריקה",
     objectPosition: "center center",
   },
   zipline: {
-    src: `${PESACH_BASE}/zipline-adventures.png`,
+    src: `${PESACH_BASE}/zipline-adventures.webp`,
     altEn: "Zip-lining adventure over a tropical jungle in Costa Rica",
     altHe: "חוויית אומגה מעל ג'ונגל טרופי בקוסטה ריקה",
     objectPosition: "center top",
   },
   volcano: {
-    src: `${PESACH_BASE}/volcano-excursions.png`,
+    src: `${PESACH_BASE}/volcano-excursions.webp`,
     altEn: "Majestic green volcano rising above a tropical lake in Costa Rica",
     altHe: "הר געש ירוק ומרשים מעל אגם טרופי בקוסטה ריקה",
     objectPosition: "center 20%",
   },
   spa: {
-    src: `${PESACH_BASE}/spa-wellness.png`,
+    src: `${PESACH_BASE}/spa-wellness.webp`,
     altEn: "Tropical spa wellness treatment in an open-air setting",
     altHe: "טיפול ספא ורוגע בסביבה טרופית פתוחה",
     objectPosition: "center center",
   },
   beach: {
-    src: `${PESACH_BASE}/beach-trips.png`,
+    src: `${PESACH_BASE}/beach-trips.webp`,
     altEn: "Cinematic tropical sunset on a secluded beach with palm trees in Costa Rica",
     altHe: "שקיעה טרופית קולנועית בחוף מבודד עם עצי דקל בקוסטה ריקה",
     objectPosition: "center center",
   },
   kids: {
-    src: `${PESACH_BASE}/kids-programs.png`,
+    src: `${PESACH_BASE}/kids-programs.webp`,
     altEn: "Children’s holiday activity program",
     altHe: "תוכנית פעילות לילדים במהלך החג",
     objectPosition: "center center",
   },
   sports: {
-    src: `${PESACH_BASE}/sports-recreation.png`,
+    src: `${PESACH_BASE}/sports-recreation.webp`,
     altEn: "Tropical tennis court for sports and recreation",
     altHe: "מגרש טניס טרופי לספורט ופעילויות",
     objectPosition: "center center",
   },
   evening: {
-    src: `${PESACH_BASE}/evening-entertainment.png`,
+    src: `${PESACH_BASE}/evening-entertainment.webp`,
     altEn: "Live evening entertainment performance in a tropical resort setting",
     altHe: "מופע ערב חי באווירת ריזורט טרופי",
     objectPosition: "center center",
@@ -93,19 +95,19 @@ const DINING_MEDIA: Record<
   { src: string; altEn: string; altHe: string; objectPosition?: string }
 > = {
   elegant: {
-    src: `${PESACH_BASE}/elegant-dining-experience.png`,
+    src: `${PESACH_BASE}/elegant-dining-experience.webp`,
     altEn: "Elegant kosher dining experience",
     altHe: "חוויית סעודה כשרה ואלגנטית",
     objectPosition: "center center",
   },
   chef: {
-    src: `${PESACH_BASE}/gourmet-chef-prepared-meals.png`,
+    src: `${PESACH_BASE}/gourmet-chef-prepared-meals.webp`,
     altEn: "Gourmet kosher chef-prepared meal",
     altHe: "ארוחת שף כשרה בסגנון גורמה",
     objectPosition: "center center",
   },
   desserts: {
-    src: `${PESACH_BASE}/passover-desserts.png`,
+    src: `${PESACH_BASE}/passover-desserts.webp`,
     altEn: "Luxury Passover dessert selection",
     altHe: "קינוחים יוקרתיים כשרים לפסח",
     objectPosition: "center center",
@@ -139,14 +141,14 @@ export default function PesachPage() {
             style={{ objectPosition: HERO_IMAGE.objectPosition }}
           />
         </motion.div>
-        <div className="absolute inset-0 z-[1] bg-black/35" aria-hidden />
+        <div className="absolute inset-0 z-[1] bg-black/15" aria-hidden />
         <div
           className="absolute inset-0 z-[1] pointer-events-none"
           style={{
             background:
               language === "he"
-                ? "linear-gradient(270deg, rgba(1,78,80,0.82) 0%, rgba(1,78,80,0.45) 42%, rgba(0,0,0,0.15) 72%, rgba(0,0,0,0.08) 100%)"
-                : "linear-gradient(90deg, rgba(1,78,80,0.82) 0%, rgba(1,78,80,0.45) 42%, rgba(0,0,0,0.15) 72%, rgba(0,0,0,0.08) 100%)",
+                ? "linear-gradient(270deg, rgba(1,78,80,0.48) 0%, rgba(1,78,80,0.22) 40%, rgba(0,0,0,0.06) 70%, rgba(0,0,0,0.02) 100%)"
+                : "linear-gradient(90deg, rgba(1,78,80,0.48) 0%, rgba(1,78,80,0.22) 40%, rgba(0,0,0,0.06) 70%, rgba(0,0,0,0.02) 100%)",
           }}
           aria-hidden
         />
@@ -192,45 +194,89 @@ export default function PesachPage() {
         </div>
       </section>
 
-      {/* 2. Dark highlights strip */}
-      <section className="bg-primary-container text-on-primary py-14 md:py-20" id="pesach-program">
-        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            <FadeUp eager className="lg:col-span-5">
-              <h2 className="font-headline-lg text-[1.85rem] sm:text-4xl md:text-headline-lg text-on-primary-container mb-5 leading-tight">
+      {/* 2. Light editorial highlights */}
+      <section
+        className="relative overflow-hidden bg-surface text-on-surface py-16 md:py-24"
+        id="pesach-program"
+      >
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%230D3F39' stroke-width='0.6'%3E%3Cpath d='M8 58c10-18 18-28 28-36 8-6 16-10 24-12'/%3E%3Cpath d='M4 64c12-16 22-26 34-34'/%3E%3C/g%3E%3C/svg%3E\")",
+            backgroundSize: "72px 72px",
+          }}
+          aria-hidden
+        />
+        <div className="relative z-[1] max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-start">
+            <FadeUp eager className="lg:col-span-5 lg:pe-10 xl:pe-14">
+              <span className="font-label-caps text-[11px] uppercase tracking-[0.24em] text-secondary mb-4 block">
+                {copy.highlights.eyebrow}
+              </span>
+              <h2 className="font-headline-lg text-[1.85rem] sm:text-4xl md:text-headline-lg text-primary mb-5 leading-tight">
                 {copy.highlights.title}
               </h2>
-              <p className="font-body-lg text-body-lg text-on-primary/70 leading-relaxed mb-8 max-w-md">
+              <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8 max-w-md">
                 {copy.highlights.body}
               </p>
               <a
                 href="#pesach-activities"
-                className="inline-flex font-label-caps text-xs uppercase tracking-[0.16em] text-secondary-fixed border-b border-secondary-fixed/50 hover:border-secondary-fixed pb-1 transition-colors"
+                className="group/cta inline-flex items-center gap-2 font-label-caps text-xs uppercase tracking-[0.16em] text-primary border-b border-secondary pb-1.5 hover:text-teal-dark-hover hover:border-secondary-fixed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary/50 focus-visible:ring-offset-2"
               >
                 {copy.highlights.cta}
+                {language === "he" ? (
+                  <ArrowLeft
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover/cta:-translate-x-0.5"
+                    strokeWidth={HIGHLIGHT_ICON_STROKE}
+                    aria-hidden
+                  />
+                ) : (
+                  <ArrowRight
+                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover/cta:translate-x-0.5"
+                    strokeWidth={HIGHLIGHT_ICON_STROKE}
+                    aria-hidden
+                  />
+                )}
               </a>
             </FadeUp>
 
             <StaggerGroup
               eager
-              stagger={0.1}
-              className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
+              stagger={0.09}
+              className={[
+                "lg:col-span-7 grid grid-cols-1 sm:grid-cols-2",
+                "lg:border-s lg:border-secondary/30 lg:ps-10 xl:ps-14",
+              ].join(" ")}
             >
               {copy.highlights.values.map((value, index) => {
                 const Icon = HIGHLIGHT_ICONS[index];
+                const isEndCol = index % 2 === 1;
+                const isBottomRow = index >= 2;
                 return (
                   <StaggerItem
                     key={value.title}
                     className={[
-                      "flex flex-col items-center text-center px-4 py-6 sm:py-2",
-                      index > 0
-                        ? "border-t sm:border-t-0 sm:border-s border-secondary/35"
-                        : "",
+                      "group relative flex flex-col text-start px-0 py-7 sm:p-6 md:p-7",
+                      index > 0 ? "border-t border-secondary/25 sm:border-t-0" : "",
+                      isEndCol ? "sm:border-s sm:border-secondary/25" : "",
+                      isBottomRow ? "sm:border-t sm:border-secondary/25" : "",
                     ].join(" ")}
                   >
-                    <Icon className="h-5 w-5 text-secondary-fixed mb-4" strokeWidth={1.4} aria-hidden />
-                    <p className="font-headline-sm text-base text-on-primary-container leading-snug">
+                    <Icon
+                      className="h-[1.35rem] w-[1.35rem] text-secondary mb-3.5 transition-all duration-300 ease-out group-hover:-translate-y-0.5 group-hover:text-secondary-fixed"
+                      strokeWidth={HIGHLIGHT_ICON_STROKE}
+                      aria-hidden
+                    />
+                    <div
+                      className="mb-3.5 h-px w-7 bg-secondary/45 transition-[width,background-color] duration-300 ease-out group-hover:w-9 group-hover:bg-secondary"
+                      aria-hidden
+                    />
+                    <h3 className="font-headline-sm text-[1.05rem] sm:text-lg text-primary leading-snug mb-2 transition-transform duration-300 ease-out group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5">
                       {value.title}
+                    </h3>
+                    <p className="font-body-md text-[0.9375rem] text-on-surface-variant leading-relaxed max-w-[17rem]">
+                      {value.body}
                     </p>
                   </StaggerItem>
                 );
@@ -460,44 +506,6 @@ export default function PesachPage() {
               { value: "custom", label: copy.chooseStay.customLabel, hint: copy.chooseStay.customHint },
             ]}
           />
-        </div>
-      </section>
-
-      {/* 8. Final CTA */}
-      <section className="relative overflow-hidden bg-teal-ocean text-on-primary py-16 md:py-24 px-5 sm:px-6 md:px-margin-desktop">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.14]"
-          style={{
-            backgroundImage:
-              "radial-gradient(ellipse 60% 50% at 20% 30%, rgba(253,251,248,0.35) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 85% 70%, rgba(204,148,57,0.28) 0%, transparent 50%)",
-          }}
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FDFBF8' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-          }}
-          aria-hidden
-        />
-        <div className="relative z-[1] max-w-3xl mx-auto text-center">
-          <FadeUp>
-            <Mountain className="mx-auto mb-6 h-6 w-6 text-secondary-fixed" strokeWidth={1.4} aria-hidden />
-          </FadeUp>
-          <FadeUp delay={0.06}>
-            <h2 className="font-headline-lg text-[1.75rem] sm:text-3xl md:text-headline-lg text-on-primary-container mb-8 leading-tight">
-              {copy.cta.title}
-            </h2>
-          </FadeUp>
-          <SoftScale delay={0.12}>
-            <Link
-              to="/contact"
-              className="btn-premium-hover inline-flex bg-secondary text-on-secondary hover:bg-secondary-fixed px-10 py-4 font-label-caps text-xs uppercase tracking-[0.16em] rounded-sm shadow-lg"
-            >
-              {copy.cta.button}
-            </Link>
-          </SoftScale>
         </div>
       </section>
     </div>

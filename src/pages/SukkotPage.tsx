@@ -14,12 +14,20 @@ import {
   StaggerItem,
 } from "../components/motion/PremiumReveal";
 import { useLanguage } from "../context/LanguageContext";
-import { galleryAlt, hotelGallery } from "../lib/hotelGallery";
+import { galleryAlt, hotelGallery, type GalleryImage } from "../lib/hotelGallery";
 import { LUXURY_EASE, usePremiumMotion } from "../lib/motionPresets";
 
 const HERO_IMAGE = hotelGallery.kosherOutdoorDiningTerrace;
 const OVERVIEW_IMAGE = hotelGallery.jungleVerandaMountainView;
 const MEALS_IMAGE = hotelGallery.rainforestDiningPavilion;
+const SUKKAH_IMAGE: GalleryImage = {
+  src: "/images/holidays/sukkot-retreat.webp",
+  alt: {
+    en: "Sukkot retreat hospitality at a luxury Costa Rica mountain estate",
+    he: "אירוח ריטריט סוכות באחוזה יוקרתית בהרי קוסטה ריקה",
+  },
+  objectPosition: "center 40%",
+};
 const PRAYER_IMAGE = hotelGallery.rainforestCoveredWalkway;
 const CHILDREN_IMAGE = hotelGallery.tropicalPoolRetreat;
 const EXCURSIONS_IMAGE = hotelGallery.tropicalJungleWaterfall;
@@ -44,7 +52,7 @@ function FeatureSection({
   placeholderSubtitle,
 }: {
   copy: FeatureCopy;
-  image?: (typeof hotelGallery)[keyof typeof hotelGallery];
+  image?: GalleryImage;
   language: "en" | "he";
   reversed?: boolean;
   muted?: boolean;
@@ -185,14 +193,7 @@ export default function SukkotPage() {
       </section>
 
       <FeatureSection copy={copy.meals} image={MEALS_IMAGE} language={language} muted />
-      <FeatureSection
-        copy={copy.sukkah}
-        language={language}
-        reversed
-        usePlaceholder
-        placeholderTitle={copy.sukkah.title}
-        placeholderSubtitle={copy.programNote}
-      />
+      <FeatureSection copy={copy.sukkah} image={SUKKAH_IMAGE} language={language} reversed />
       <FeatureSection copy={copy.prayer} image={PRAYER_IMAGE} language={language} muted />
       <FeatureSection copy={copy.children} image={CHILDREN_IMAGE} language={language} reversed />
       <FeatureSection copy={copy.excursions} image={EXCURSIONS_IMAGE} language={language} muted />

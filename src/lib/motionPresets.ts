@@ -3,7 +3,7 @@ import { useLanguage } from "../context/LanguageContext";
 import { useIsMobile } from "../hooks/useMediaQuery";
 
 export const LUXURY_EASE = [0.22, 1, 0.36, 1] as const;
-export const SCROLL_VIEWPORT = { once: true, amount: 0.15, margin: "-80px" } as const;
+export const SCROLL_VIEWPORT = { once: true, amount: 0.08, margin: "0px 0px -40px 0px" } as const;
 
 export type MotionSide = "start" | "end";
 
