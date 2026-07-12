@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { HAS_REAL_EMAIL, HAS_REAL_PHONE, HAS_REAL_WHATSAPP, WHATSAPP_URL } from "../../content/brand";
+import { HAS_REAL_WHATSAPP, WHATSAPP_URL } from "../../content/brand";
 import { FadeUp } from "../motion/PremiumReveal";
 
 export type InquiryFormData = {
@@ -29,11 +29,15 @@ type InquiryFormProps = {
     message: string;
     submit: string;
     whatsapp: string;
+    whatsappPlaceholder?: string;
     roomOptions: readonly string[];
     requirementOptions: readonly string[];
     success: string;
   };
+  /** @deprecated Prefer variant — compact maps to contact fields */
   compact?: boolean;
+  /** full = Plan Your Stay fields; contact = conversion form fields only */
+  variant?: "full" | "contact";
 };
 
 const initialState: InquiryFormData = {
@@ -48,9 +52,11 @@ const initialState: InquiryFormData = {
   message: "",
 };
 
-export default function InquiryForm({ labels, compact = false }: InquiryFormProps) {
+export default function InquiryForm({ labels, compact = false, variant }: InquiryFormProps) {
   const [form, setForm] = React.useState<InquiryFormData>(initialState);
   const [submitted, setSubmitted] = React.useState(false);
+  const mode = variant ?? (compact ? "contact" : "full");
+  const isContact = mode === "contact";
 
   const update = (field: keyof InquiryFormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -67,13 +73,13 @@ export default function InquiryForm({ labels, compact = false }: InquiryFormProp
     "w-full bg-surface border border-surface-container-high px-4 py-3 text-sm text-primary placeholder:text-on-surface-variant/60 rounded-sm focus:outline-none focus:border-secondary";
 
   return (
-    <FadeUp>
+    <FadeUp eager={isContact}>
       <form
         onSubmit={handleSubmit}
-        className="bg-surface border border-surface-container-high p-8 md:p-10 rounded shadow-sm space-y-5"
+        className="bg-surface border border-surface-container-high p-8 md:p-10 rounded-sm shadow-sm space-y-5"
         data-form="inquiry"
       >
-        <div className={`grid grid-cols-1 ${compact ? "md:grid-cols-2" : "md:grid-cols-2"} gap-5`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <label className="block space-y-1.5">
             <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.fullName}</span>
             <input required type="text" value={form.fullName} onChange={(e) => update("fullName", e.target.value)} className={inputClass} />
@@ -90,7 +96,25 @@ export default function InquiryForm({ labels, compact = false }: InquiryFormProp
             <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.country}</span>
             <input type="text" value={form.country} onChange={(e) => update("country", e.target.value)} className={inputClass} />
           </label>
-          {!compact && (
+
+          {isContact ? (
+            <>
+              <label className="block space-y-1.5">
+                <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.guests}</span>
+                <input type="text" value={form.guests} onChange={(e) => update("guests", e.target.value)} className={inputClass} />
+              </label>
+              <label className="block space-y-1.5">
+                <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.preferredDates}</span>
+                <input
+                  type="text"
+                  value={form.preferredDates}
+                  onChange={(e) => update("preferredDates", e.target.value)}
+                  className={inputClass}
+                  placeholder={labels.preferredDatesPlaceholder ?? ""}
+                />
+              </label>
+            </>
+          ) : (
             <>
               <label className="block space-y-1.5">
                 <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.guests}</span>
@@ -126,10 +150,11 @@ export default function InquiryForm({ labels, compact = false }: InquiryFormProp
               </label>
             </>
           )}
-          <label className={`block space-y-1.5 ${compact ? "md:col-span-2" : "md:col-span-2"}`}>
+
+          <label className="block space-y-1.5 md:col-span-2">
             <span className="font-label-caps text-[10px] uppercase tracking-wider text-secondary">{labels.message}</span>
             <textarea
-              rows={compact ? 4 : 5}
+              rows={isContact ? 4 : 5}
               value={form.message}
               onChange={(e) => update("message", e.target.value)}
               className={`${inputClass} resize-y min-h-[120px]`}
@@ -144,28 +169,38 @@ export default function InquiryForm({ labels, compact = false }: InquiryFormProp
         ) : null}
 
         {!submitted ? (
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <button type="submit" className="btn-premium-hover flex-1 bg-primary text-on-primary hover:bg-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm cursor-pointer">
-            {labels.submit}
-          </button>
-          {HAS_REAL_WHATSAPP ? (
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-premium-hover flex-1 text-center border border-secondary text-secondary hover:bg-secondary hover:text-on-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <button
+              type="submit"
+              className="btn-premium-hover flex-1 bg-primary text-on-primary hover:bg-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm cursor-pointer"
             >
-              {labels.whatsapp}
-            </a>
-          ) : (
-            <Link
-              to="/contact"
-              className="btn-premium-hover flex-1 text-center border border-secondary text-secondary hover:bg-secondary hover:text-on-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
-            >
-              {labels.whatsapp}
-            </Link>
-          )}
-        </div>
+              {labels.submit}
+            </button>
+            {HAS_REAL_WHATSAPP ? (
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-premium-hover flex-1 text-center border border-secondary text-secondary hover:bg-secondary hover:text-on-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
+              >
+                {labels.whatsapp}
+              </a>
+            ) : labels.whatsappPlaceholder ? (
+              <span
+                className="flex-1 text-center border border-surface-container-high text-on-surface-variant py-3.5 px-4 font-label-caps text-xs uppercase tracking-widest rounded-sm"
+                aria-disabled="true"
+              >
+                {labels.whatsappPlaceholder}
+              </span>
+            ) : (
+              <Link
+                to="/contact"
+                className="btn-premium-hover flex-1 text-center border border-secondary text-secondary hover:bg-secondary hover:text-on-secondary py-3.5 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
+              >
+                {labels.whatsapp}
+              </Link>
+            )}
+          </div>
         ) : null}
       </form>
     </FadeUp>

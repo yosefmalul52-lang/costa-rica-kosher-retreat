@@ -36,6 +36,8 @@ export function useSmoothScroll(pathname?: string) {
       syncTouch: false,
       allowNestedScroll: true,
       virtualScroll: shouldLenisHandleScroll,
+      // Keep native document scroll so CSS sticky + Motion useScroll work reliably
+      autoRaf: false,
     });
 
     lenisRef.current = lenis;

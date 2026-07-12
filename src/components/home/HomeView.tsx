@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import OptimizedImage from "../OptimizedImage";
 import SectionCta from "../sections/SectionCta";
+import ScrollStoryStages from "./ScrollStoryStages";
 import {
   LOCATION_IMAGE,
   DINING_IMAGE,
@@ -139,13 +140,13 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             <img
               src={HERO_POSTER}
               alt={t.heroImageAlt}
-              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [filter:brightness(0.78)_contrast(1.05)]"
               decoding="async"
             />
           ) : (
             <video
               key={heroVideoSrc}
-              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [transform:translateZ(0)]"
+              className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [transform:translateZ(0)] [filter:brightness(0.78)_contrast(1.05)]"
               autoPlay
               muted
               loop
@@ -159,15 +160,28 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
           )}
         </motion.div>
 
-        <div className="absolute inset-0 bg-primary-container/5 z-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary-container/20 via-transparent to-primary-container/10 z-0" />
+        {/* Soft full-bleed dim — under text, over video */}
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{ background: "rgba(0, 0, 0, 0.28)" }}
+          aria-hidden
+        />
+        {/* Focused center vignette for headline + CTAs */}
+        <div
+          className="absolute inset-0 z-[1] pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 48%, rgba(0, 0, 0, 0.42) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 72%)",
+          }}
+          aria-hidden
+        />
 
         <div className="relative z-10 text-center px-6 md:px-0 max-w-4xl">
           <motion.span
             initial={heroInitial({ opacity: 0, y: 40 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.2 }}
-            className="font-label-caps text-label-caps text-secondary-fixed mb-4 block tracking-[0.3em] text-amber-100 uppercase"
+            className="font-label-caps text-label-caps text-secondary-fixed mb-4 block tracking-[0.3em] text-amber-100 uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {t.hero.eyebrow}
           </motion.span>
@@ -176,7 +190,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             initial={heroInitial({ opacity: 0, y: 40, filter: "blur(6px)" })}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 1, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.4 }}
-            className="font-headline-xl text-3xl md:text-headline-xl text-on-primary mb-8 leading-tight"
+            className="font-headline-xl text-3xl md:text-headline-xl text-on-primary mb-8 leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {t.hero.titleBefore}
             <span className="italic font-serif font-light text-secondary-fixed-dim">{t.hero.titleEmphasis}</span>
@@ -191,13 +205,13 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
           >
             <button
               onClick={onStartPlanning}
-              className="btn-premium-hover w-full sm:w-auto bg-teal-ocean text-white hover:bg-teal-dark-hover px-10 py-4 font-label-caps text-label-caps transition-all shadow-lg hover:shadow-xl rounded-sm cursor-pointer"
+              className="btn-premium-hover w-full sm:w-auto bg-teal-ocean text-white hover:bg-teal-dark-hover px-10 py-4 font-label-caps text-label-caps transition-all shadow-lg hover:shadow-xl rounded-sm cursor-pointer [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
             >
               {t.hero.ctaPrimary}
             </button>
             <Link
               to="/rooms"
-              className="btn-premium-hover w-full sm:w-auto text-center border border-teal-ocean text-teal-dark-primary px-10 py-4 font-label-caps text-label-caps bg-white/80 hover:bg-light-aqua hover:text-teal-dark-hover transition-all rounded-sm"
+              className="btn-premium-hover w-full sm:w-auto text-center border border-teal-ocean text-teal-dark-primary px-10 py-4 font-label-caps text-label-caps bg-white/80 hover:bg-light-aqua hover:text-teal-dark-hover transition-all rounded-sm [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
             >
               {t.hero.ctaSecondary}
             </Link>
@@ -291,11 +305,11 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
         </div>
       </section>
 
-      {/* 4. Cinematic Story (Tactile Scroll Journey) */}
-      <section className="py-24 relative bg-surface-container-low overflow-hidden">
+      {/* 4. Cinematic Story — sticky stacking cards (desktop) */}
+      <section className="pt-24 pb-16 md:pb-20 relative bg-surface-container-low">
         <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="flex flex-col lg:flex-row gap-16 items-start">
-            <FadeUp className="w-full lg:w-1/2 lg:sticky lg:top-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div className="w-full lg:sticky lg:top-[7.5rem] self-start">
               <ImageReveal className="aspect-[4/3] md:aspect-[16/10] rounded shadow-2xl relative">
                 <OptimizedImage
                   className="w-full h-full object-cover"
@@ -307,21 +321,13 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                   <p className="font-headline-sm text-headline-sm">{t.scrollStory.imageTitle}</p>
                 </div>
               </ImageReveal>
-            </FadeUp>
+            </div>
 
-            <div className="w-full lg:w-1/2">
-              <StaggerGroup stagger={0.14} className="space-y-16 py-4">
-                {t.scrollStory.stages.map((stage) => (
-                  <StaggerItem key={stage.label} className={accentBorderClass}>
-                    <span className="font-label-caps text-xs text-secondary tracking-widest block mb-2">{stage.label}</span>
-                    <h3 className="font-headline-sm text-headline-sm text-primary mb-3">{stage.title}</h3>
-                    <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{stage.body}</p>
-                  </StaggerItem>
-                ))}
-              </StaggerGroup>
-              <FadeUp delay={0.2} className="mt-12">
+            <div className="w-full min-w-0">
+              <ScrollStoryStages stages={t.scrollStory.stages} accentBorderClass={accentBorderClass} />
+              <div className="mt-8 md:mt-10 relative z-[20]">
                 <SectionCta to="/contact" label={home.links.planYourStay} />
-              </FadeUp>
+              </div>
             </div>
           </div>
         </div>

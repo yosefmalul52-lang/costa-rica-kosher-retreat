@@ -12,7 +12,7 @@ export default function SiteLayout() {
   usePageSeo(pathnameToSeoKey(pathname));
 
   return (
-    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-secondary/20 selection:text-primary">
+    <div className="bg-surface text-on-surface font-body-md min-h-screen flex flex-col justify-between overflow-x-clip selection:bg-secondary/20 selection:text-primary">
       <Navbar />
       <main className="flex-1">
         <Outlet />

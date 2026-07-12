@@ -71,9 +71,6 @@ export default function Navbar() {
   const actionHoverClass = isSolid
     ? "hover:bg-bg-aqua hover:text-teal-ocean hover:border-teal-ocean"
     : "hover:bg-teal-ocean hover:text-white hover:border-teal-ocean";
-  const ctaClass = isSolid
-    ? "bg-teal-ocean text-white hover:bg-teal-dark-hover border-teal-ocean"
-    : "border-white/45 text-white bg-transparent hover:bg-teal-ocean hover:border-teal-ocean hover:text-white";
 
   return (
     <header
@@ -152,16 +149,6 @@ export default function Navbar() {
             </Link>
           )}
 
-          <Link
-            to="/contact"
-            className={[
-              "hidden lg:inline-flex items-center h-8 px-3 border font-label-caps text-[9px] tracking-[0.1em] uppercase transition-colors rounded-sm whitespace-nowrap",
-              ctaClass,
-            ].join(" ")}
-          >
-            {t.nav.planYourStay}
-          </Link>
-
           {SHOW_LANGUAGE_TOGGLE ? (
             <>
               <div className="lg:hidden">
@@ -193,8 +180,7 @@ export default function Navbar() {
                 {t.nav[item.labelKey]}
               </NavLink>
             ))}
-            <div className="pt-3 mt-2 border-t border-surface-container-high flex flex-col gap-3">
-              <div className="flex items-center justify-end gap-3">
+            <div className="pt-3 mt-2 border-t border-surface-container-high flex items-center justify-end gap-3">
                 {phoneHref ? (
                   <a
                     href={phoneHref}
@@ -212,13 +198,6 @@ export default function Navbar() {
                     <Phone className="h-3.5 w-3.5" strokeWidth={1.75} />
                   </Link>
                 )}
-              </div>
-              <Link
-                to="/contact"
-                className="inline-flex items-center justify-center h-10 px-4 border border-[#03777A] bg-[#03777A] text-white font-label-caps text-[10px] tracking-[0.1em] uppercase rounded-sm transition-colors hover:bg-teal-dark-hover"
-              >
-                {t.nav.planYourStay}
-              </Link>
             </div>
           </nav>
         </div>

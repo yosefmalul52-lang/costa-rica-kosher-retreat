@@ -12,6 +12,7 @@ export const pagesEn = {
     rooms: [
       {
         id: "luxury-suite",
+        badge: "Suite",
         name: "Luxury Suite",
         description: "An elegant suite with cedar accents, separate living space, and panoramic valley views—crafted for couples or small families who value privacy and refinement.",
         includes: ["King or twin bedding configuration", "Kosher refreshment station", "Private terrace", "Shabbat-friendly lighting"],
@@ -22,6 +23,7 @@ export const pagesEn = {
       },
       {
         id: "family-suite",
+        badge: "Family",
         name: "Family Suite",
         description: "Generous interconnecting spaces with room for children, quiet reading corners, and easy access to family programming across the estate.",
         includes: ["Multiple sleeping areas", "Family lounge", "Enhanced storage", "Child-safe terrace access"],
@@ -32,16 +34,18 @@ export const pagesEn = {
       },
       {
         id: "mountain-villa",
+        badge: "Villa",
         name: "Mountain View Villa",
         description: "A private villa framed by cloud forest and volcanic horizons—spacious, serene, and ideal for multi-generational gatherings.",
         includes: ["Expansive great room", "Outdoor dining terrace", "Kosher kitchenette", "Dedicated concierge line"],
         idealFor: "Groups and extended families celebrating milestones together.",
-        image: "/images/hotel-gallery/private-villa-garden-entrance.jpg",
-        imageAlt: "Private white villa entrance with manicured tropical garden",
-        imageObjectPosition: "center 30%",
+        image: "/images/hotel-gallery/tropical-resort-arrival-driveway.jpg",
+        imageAlt: "Tropical resort arrival driveway through lush palm gardens",
+        imageObjectPosition: "center center",
       },
       {
         id: "private-retreat",
+        badge: "Private Residence",
         name: "Private Retreat Residence",
         description: "The estate's most secluded residence—reserved for guests who desire complete privacy, bespoke service, and an unhurried mountain escape.",
         includes: ["Full private grounds", "Personalized meal scheduling", "Priority excursion planning", "Enhanced Shabbat setup"],
@@ -63,55 +67,71 @@ export const pagesEn = {
       title: "Kosher & Jewish Life",
       body: "Kosher details confirmed during inquiry. Jewish life support available upon request, with Shabbat-friendly hospitality shaped around your stay.",
     },
-    sections: [
-      {
-        title: "Glatt / Mehadrin Standards",
-        body: "Kosher standards are confirmed during inquiry. Mehadrin preferences and elevated standards can be discussed in advance with our team.",
-      },
-      {
-        title: "Kosher Dining",
-        body: "Chef-driven kosher cuisine featuring Costa Rican produce and premium ingredients. Menus and meal timing are shaped around your family's needs and the season of your stay.",
-      },
-      {
-        title: "Shabbat",
-        body: "Shabbat-friendly hospitality in a peaceful mountain setting—communal meals, calm atmosphere, and observance arranged upon request.",
-      },
-      {
-        title: "Daily Prayers",
-        body: "Jewish life support available upon request. Prayer arrangements and schedules are coordinated in advance with your party.",
-      },
-      {
-        title: "Holidays",
-        body: "Pesach, Sukkot, and seasonal observances can be discussed as part of your stay planning—combining tradition with the natural beauty of Costa Rica.",
-      },
-      {
-        title: "Jewish Atmosphere",
-        body: "A retreat designed for guests who wish to live Jewish rhythm comfortably and discreetly—from dining to quiet spaces across the estate.",
-      },
-      {
-        title: "Jewish Needs in Advance",
-        body: "Share your kashrut requirements, Shabbat preferences, and prayer needs before arrival. Our team coordinates the details so your stay feels seamless.",
-      },
-    ],
-    faqTitle: "Common Questions",
-    faq: [
-      {
-        q: "What level of kashrut do you maintain?",
-        a: "Kosher details confirmed during inquiry, with guidance tailored to your family's needs and preferences.",
-      },
-      {
-        q: "Can Jewish life be arranged for our group?",
-        a: "Yes. Jewish life support is available upon request and coordinated in advance with your party.",
-      },
-      {
-        q: "How do we discuss Shabbat and holiday needs?",
-        a: "Share your preferences when you contact us. Shabbat-friendly hospitality and seasonal arrangements are planned together with your group.",
-      },
-    ],
+    dining: {
+      eyebrow: "Dining & Kashrut",
+      title: "Kosher dining, thoughtfully prepared",
+      body: "Chef-driven kosher cuisine featuring Costa Rican produce and premium ingredients. Menus and meal timing are shaped around your family's needs and the season of your stay.",
+      checklist: [
+        {
+          title: "Glatt / Mehadrin Standards",
+          body: "Kosher standards are confirmed during inquiry. Mehadrin preferences and elevated standards can be discussed in advance with our team.",
+        },
+        {
+          title: "Luxury Dining Experience",
+          body: "Refined presentation and seasonal menus—crafted for a calm, elevated table in the mountains.",
+        },
+        {
+          title: "Shabbat & Holiday Meals",
+          body: "Shabbat-friendly hospitality and seasonal holiday meals can be arranged upon request as part of your stay planning.",
+        },
+        {
+          title: "Family Adaptations",
+          body: "Flexible timing and thoughtful options for families who want comfort without compromising standards.",
+        },
+        {
+          title: "Personal Requests in Advance",
+          body: "Share dietary preferences and special requests before arrival so every meal feels seamless.",
+        },
+      ],
+    },
+    jewishLife: {
+      eyebrow: "Shabbat & Jewish Life",
+      title: "A Jewish rhythm, upon request",
+      body: "Jewish life support available upon request—coordinated discreetly with your party so the mountains feel like home.",
+      cards: [
+        {
+          title: "Shabbat",
+          body: "Shabbat-friendly hospitality in a peaceful mountain setting—communal meals, calm atmosphere, and observance arranged upon request.",
+        },
+        {
+          title: "Prayers",
+          body: "Prayer arrangements and schedules are coordinated in advance with your party.",
+        },
+        {
+          title: "Holidays",
+          body: "Pesach, Sukkot, and seasonal observances can be discussed as part of your stay planning—combining tradition with the natural beauty of Costa Rica.",
+        },
+        {
+          title: "Learning",
+          body: "Jewish life support available upon request. Study and learning arrangements can be discussed in advance with your group.",
+        },
+        {
+          title: "Jewish Atmosphere",
+          body: "A retreat designed for guests who wish to live Jewish rhythm comfortably and discreetly—from dining to quiet spaces across the estate.",
+        },
+        {
+          title: "Family Hospitality",
+          body: "Share your family's needs before arrival. Our team coordinates the details so your stay feels calm, clear, and welcoming.",
+        },
+      ],
+    },
+    faqLink: "View frequently asked questions",
     cta: {
       title: "Discuss your kosher and Jewish life needs",
       body: "Tell us about dietary standards, Shabbat preferences, and any arrangements you would like coordinated in advance.",
-      button: "Plan Your Stay",
+      button: "Contact Us",
+      whatsapp: "WhatsApp",
+      whatsappPlaceholder: "WhatsApp — available upon request",
     },
   },
   costaRicaGuide: {
@@ -120,44 +140,123 @@ export const pagesEn = {
       title: "Costa Rica Guide",
       body: "A practical introduction to the highlands, nature, and experiences around our mountain retreat—so you can arrive informed and travel with confidence.",
     },
-    sections: [
-      {
-        title: "Discover Costa Rica",
-        body: "Beyond the coastline, Costa Rica's central highlands offer cloud forests, volcanic landscapes, and a quieter rhythm—ideal for families and travelers seeking nature with refinement.",
-      },
-      {
-        title: "Suggested Routes",
-        body: "Mountain drives, valley viewpoints, and forest paths can be woven into a relaxed itinerary. Routes are planned around your pace, interests, and schedule.",
-      },
-      {
-        title: "Guided Tours",
-        body: "Private guides lead volcano visits, rainforest walks, and scenic outings. Timing and arrangements respect your kosher schedule and family needs.",
-      },
-      {
-        title: "Leading Attractions",
-        body: "Cloud forests, volcanic peaks, waterfalls, and emerald valleys in the Cartago region—each offering a distinct perspective on Costa Rica's natural beauty.",
-      },
-      {
-        title: "Nature & Mountains",
-        body: "Crisp highland air, misty forests, and panoramic horizons define the mountain experience—a contrast to the humid tropical coast.",
-      },
-      {
-        title: "Weather & Seasons",
-        body: "Highland areas are generally mild and pleasant, with tropical rains possible throughout the year. Light layers and rain-ready footwear are recommended.",
-      },
-      {
-        title: "Family Experiences",
-        body: "Gentle nature walks, supervised activities, and unhurried outings suitable for children, teens, and multi-generational groups.",
-      },
-      {
-        title: "Before You Arrive",
-        body: "Valid passport, travel insurance, comfortable walking shoes, and modest attire for nature trails. Share dietary and scheduling preferences with our team in advance.",
-      },
-      {
-        title: "Experiences Through the Hotel",
-        body: "Excursions, transfers, and special requests are coordinated by our concierge—balancing adventure, rest, and the standards that matter to your family.",
-      },
-    ],
+    intro: {
+      title: "Discover Costa Rica",
+      body: "Beyond the coastline, Costa Rica's central highlands offer cloud forests, volcanic landscapes, and a quieter rhythm—ideal for families and travelers seeking nature with refinement.",
+    },
+    attractions: {
+      eyebrow: "Attractions",
+      title: "12 Recommended Attractions near Cartago",
+      body: "Well-known natural and cultural sites in Cartago province—volcanoes, valleys, gardens, and colonial landmarks. Details and access can change; confirm arrangements with our team when planning your stay.",
+      photoCredit: "Photos via Wikimedia Commons",
+      mapLinkLabel: "View on Google Maps",
+      cards: [
+        {
+          id: "irazu",
+          title: "Irazú Volcano National Park",
+          body: "Costa Rica's highest volcano, with crater viewpoints and highland scenery in Cartago province.",
+        },
+        {
+          id: "turrialba",
+          title: "Turrialba Volcano National Park",
+          body: "Volcanic landscapes in eastern Cartago. Access conditions can change—confirm before visiting.",
+        },
+        {
+          id: "orosiValley",
+          title: "Orosi Valley",
+          body: "A scenic highland valley of coffee farms, rivers, and mountain views southeast of Cartago.",
+        },
+        {
+          id: "basilica",
+          title: "Basílica de Nuestra Señora de los Ángeles",
+          body: "Costa Rica's most important pilgrimage church, located in the city of Cartago.",
+        },
+        {
+          id: "lankester",
+          title: "Lankester Botanical Garden",
+          body: "A University of Costa Rica garden near Paraíso, known for orchids and tropical plant collections.",
+        },
+        {
+          id: "guayabo",
+          title: "Guayabo National Monument",
+          body: "Costa Rica's largest known pre-Columbian archaeological site, near Turrialba.",
+        },
+        {
+          id: "ujarras",
+          title: "Ujarrás Ruins",
+          body: "Colonial church ruins set among gardens in the Orosi Valley area.",
+        },
+        {
+          id: "lakeCachi",
+          title: "Lake Cachí",
+          body: "A reservoir with scenic viewpoints in the Orosi Valley region.",
+        },
+        {
+          id: "orosiChurch",
+          title: "Iglesia de Orosi",
+          body: "A historic colonial church in the Orosi Valley, still in active use.",
+        },
+        {
+          id: "lasRuinas",
+          title: "Ruinas de Santiago Apóstol",
+          body: "Landmark church ruins in central Cartago, a reminder of the city's colonial past.",
+        },
+        {
+          id: "tapanti",
+          title: "Tapantí National Park",
+          body: "A rainforest park south of the Orosi Valley, known for dense forest, misty trails, and waterfall scenery.",
+        },
+        {
+          id: "catie",
+          title: "CATIE Botanical Garden, Turrialba",
+          body: "A tropical research and education campus in Turrialba with botanical gardens open to visitors.",
+        },
+      ],
+    },
+    routes: {
+      eyebrow: "Routes & Tours",
+      title: "Routes & Guided Tours",
+      body: "Mountain drives, valley viewpoints, and forest paths can be woven into a relaxed itinerary—with private guides available when you prefer a curated outing.",
+      items: [
+        {
+          title: "Suggested Routes",
+          body: "Mountain drives, valley viewpoints, and forest paths can be woven into a relaxed itinerary. Routes are planned around your pace, interests, and schedule.",
+        },
+        {
+          title: "Guided Tours",
+          body: "Private guides lead volcano visits, rainforest walks, and scenic outings. Timing and arrangements respect your kosher schedule and family needs.",
+        },
+        {
+          title: "Experiences Through the Hotel",
+          body: "Excursions, transfers, and special requests are coordinated by our concierge—balancing adventure, rest, and the standards that matter to your family.",
+        },
+      ],
+    },
+    nature: {
+      eyebrow: "Nature",
+      title: "Nature & Mountains",
+      body: "Crisp highland air, misty forests, and panoramic horizons define the mountain experience—a contrast to the humid tropical coast.",
+    },
+    families: {
+      eyebrow: "Families",
+      title: "Family Experiences",
+      body: "Gentle nature walks, supervised activities, and unhurried outings suitable for children, teens, and multi-generational groups.",
+    },
+    practical: {
+      eyebrow: "Before You Arrive",
+      title: "Useful Information",
+      body: "A few practical notes to help you arrive prepared for highland weather, nature trails, and a calm start to your stay.",
+      items: [
+        {
+          title: "Weather & Seasons",
+          body: "Highland areas are generally mild and pleasant, with tropical rains possible throughout the year. Light layers and rain-ready footwear are recommended.",
+        },
+        {
+          title: "Before You Arrive",
+          body: "Valid passport, travel insurance, comfortable walking shoes, and modest attire for nature trails. Share dietary and scheduling preferences with our team in advance.",
+        },
+      ],
+    },
     cta: {
       title: "Plan your Costa Rica stay",
       body: "Our team will help you shape a mountain itinerary that suits your family, season, and pace.",

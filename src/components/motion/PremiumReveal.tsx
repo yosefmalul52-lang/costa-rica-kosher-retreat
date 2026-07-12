@@ -5,17 +5,19 @@ import { SCROLL_VIEWPORT, usePremiumMotion, type MotionSide } from "../../lib/mo
 type RevealProps = HTMLMotionProps<"div"> & {
   delay?: number;
   withBlur?: boolean;
+  /** When true, animate in immediately (no wait for scroll into view). */
+  eager?: boolean;
 };
 
-function useRevealInView() {
+function useRevealInView(eager = false) {
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, SCROLL_VIEWPORT);
-  return { ref, isInView };
+  return { ref, isInView: eager || isInView };
 }
 
-export function FadeUp({ children, className, delay = 0, withBlur = false, ...rest }: RevealProps) {
+export function FadeUp({ children, className, delay = 0, withBlur = false, eager = false, ...rest }: RevealProps) {
   const { fadeUp } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
@@ -35,10 +37,11 @@ export function SplitText({
   className,
   side = "start",
   delay = 0,
+  eager = false,
   ...rest
 }: RevealProps & { side?: MotionSide }) {
   const { splitText } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
@@ -58,10 +61,11 @@ export function SplitImage({
   className,
   side = "end",
   delay = 0,
+  eager = false,
   ...rest
 }: RevealProps & { side?: MotionSide }) {
   const { splitImage } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
@@ -81,10 +85,11 @@ export function ImageReveal({
   className,
   innerClassName,
   delay = 0,
+  eager = false,
   ...rest
 }: RevealProps & { innerClassName?: string }) {
   const { imageRevealWrapper, imageRevealInner } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
@@ -101,9 +106,9 @@ export function ImageReveal({
   );
 }
 
-export function SoftScale({ children, className, delay = 0, ...rest }: RevealProps) {
+export function SoftScale({ children, className, delay = 0, eager = false, ...rest }: RevealProps) {
   const { softScale } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
@@ -122,10 +127,11 @@ export function StaggerGroup({
   children,
   className,
   stagger = 0.12,
+  eager = false,
   ...rest
 }: RevealProps & { stagger?: number }) {
   const { staggerContainer } = usePremiumMotion();
-  const { ref, isInView } = useRevealInView();
+  const { ref, isInView } = useRevealInView(eager);
   return (
     <motion.div
       ref={ref}
