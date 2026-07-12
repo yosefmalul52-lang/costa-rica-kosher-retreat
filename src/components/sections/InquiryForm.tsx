@@ -76,7 +76,7 @@ export default function InquiryForm({ labels, compact = false, variant }: Inquir
     <FadeUp eager={isContact}>
       <form
         onSubmit={handleSubmit}
-        className="bg-surface border border-surface-container-high p-8 md:p-10 rounded-sm shadow-sm space-y-5"
+        className="bg-surface border border-surface-container-high p-5 sm:p-8 md:p-10 rounded-sm shadow-sm space-y-5"
         data-form="inquiry"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

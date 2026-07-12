@@ -107,6 +107,14 @@ export function imageRevealInnerVariant(ctx: MotionContext, delay = 0) {
     };
   }
 
+  // Avoid horizontal bleed from scale transforms on narrow viewports
+  if (ctx.isMobile) {
+    return {
+      hidden: { opacity: 0.85 },
+      visible: { opacity: 1, transition: transition(0.7, delay) },
+    };
+  }
+
   return {
     hidden: { scale: 1.06 },
     visible: { scale: 1, transition: transition(0.95, delay) },
@@ -151,6 +159,13 @@ export function softScaleVariant(ctx: MotionContext, delay = 0) {
     return {
       hidden: { opacity: 0 },
       visible: { opacity: 1, transition: transition(0.5, delay) },
+    };
+  }
+
+  if (ctx.isMobile) {
+    return {
+      hidden: { opacity: 0, y: 24 },
+      visible: { opacity: 1, y: 0, transition: transition(0.75, delay) },
     };
   }
 

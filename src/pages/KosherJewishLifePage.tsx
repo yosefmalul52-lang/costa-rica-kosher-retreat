@@ -64,12 +64,12 @@ export default function KosherJewishLifePage() {
           aria-hidden
         />
 
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-6 md:px-margin-desktop pb-16 pt-36 md:py-24 text-center">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop pb-12 sm:pb-16 pt-28 sm:pt-36 md:py-24 text-center">
           <motion.span
             initial={heroInitial({ opacity: 0, y: 28 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.15 }}
-            className="font-label-caps text-label-caps text-secondary-fixed mb-4 block tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-label-caps text-[11px] sm:text-label-caps text-secondary-fixed mb-3 sm:mb-4 block tracking-[0.22em] sm:tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.eyebrow}
           </motion.span>
@@ -77,7 +77,7 @@ export default function KosherJewishLifePage() {
             initial={heroInitial({ opacity: 0, y: 32, filter: "blur(6px)" })}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.95, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.3 }}
-            className="font-headline-lg text-4xl md:text-headline-lg text-on-primary mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-headline-lg text-[1.75rem] sm:text-4xl md:text-headline-lg text-on-primary mb-4 sm:mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.title}
           </motion.h1>
@@ -93,8 +93,8 @@ export default function KosherJewishLifePage() {
       </section>
 
       {/* 2. Dining & Kashrut */}
-      <section className="py-20 md:py-28 px-6 md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16 mb-16 md:mb-20">
+      <section className="py-14 md:py-28 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16 mb-12 md:mb-20">
           <SplitImage side="start" eager className="w-full lg:w-[48%]">
             <ImageReveal eager className="aspect-[4/5] md:aspect-[5/6] rounded shadow-sm border border-surface-container-high">
               <OptimizedImage
@@ -111,7 +111,7 @@ export default function KosherJewishLifePage() {
             <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
               {copy.dining.eyebrow}
             </span>
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+            <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
               {copy.dining.title}
             </h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-10">
@@ -138,16 +138,16 @@ export default function KosherJewishLifePage() {
       </section>
 
       {/* 3. Shabbat & Jewish Life */}
-      <section className="bg-surface-container py-20 md:py-28">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="text-center max-w-2xl mx-auto mb-14 md:mb-16">
+      <section className="bg-surface-container py-14 md:py-28">
+        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
+          <div className="text-center max-w-2xl mx-auto mb-10 md:mb-16">
             <FadeUp eager>
               <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
                 {copy.jewishLife.eyebrow}
               </span>
             </FadeUp>
             <FadeUp eager delay={0.08}>
-              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+              <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
                 {copy.jewishLife.title}
               </h2>
             </FadeUp>
@@ -158,7 +158,7 @@ export default function KosherJewishLifePage() {
             </FadeUp>
           </div>
 
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16 mb-14 md:mb-16">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12 lg:gap-16 mb-10 md:mb-16">
             <SplitImage side="end" className="w-full lg:w-1/2">
               <ImageReveal className="aspect-[16/11] rounded shadow-sm border border-surface-container-high">
                 <OptimizedImage
@@ -189,7 +189,7 @@ export default function KosherJewishLifePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
             {copy.jewishLife.cards.slice(4).map((card, index) => (
               <FadeUp key={card.title} delay={index * 0.08}>
-                <div className="bg-surface border border-surface-container-high p-8 rounded-sm shadow-sm h-full">
+                <div className="bg-surface border border-surface-container-high p-5 sm:p-8 rounded-sm shadow-sm h-full">
                   <h3 className="font-headline-sm text-headline-sm text-primary mb-3">{card.title}</h3>
                   <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{card.body}</p>
                 </div>
@@ -197,7 +197,7 @@ export default function KosherJewishLifePage() {
             ))}
           </div>
 
-          <SoftScale className="relative overflow-hidden rounded shadow-sm border border-surface-container-high aspect-[21/9] max-h-[360px]">
+          <SoftScale className="relative overflow-hidden rounded shadow-sm border border-surface-container-high aspect-[16/10] sm:aspect-[21/9] max-h-[280px] sm:max-h-[360px]">
             <OptimizedImage
               src={ATMOSPHERE_IMAGE.src}
               alt={galleryAlt(ATMOSPHERE_IMAGE, language)}
@@ -210,7 +210,7 @@ export default function KosherJewishLifePage() {
       </section>
 
       {/* FAQ link only */}
-      <section className="py-12 px-6 md:px-margin-desktop text-center">
+      <section className="py-10 md:py-12 px-5 sm:px-6 md:px-margin-desktop text-center">
         <FadeUp>
           <Link
             to="/faq"
@@ -222,12 +222,12 @@ export default function KosherJewishLifePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="bg-primary-container text-on-primary py-20 md:py-24 px-6 md:px-margin-desktop">
+      <section className="bg-primary-container text-on-primary py-14 md:py-24 px-5 sm:px-6 md:px-margin-desktop">
         <div className="max-w-3xl mx-auto text-center">
           <SoftScale>
             <h2 className="font-headline-md text-headline-md text-on-primary mb-4">{copy.cta.title}</h2>
-            <p className="font-body-md text-body-md text-on-primary/85 mb-10 leading-relaxed">{copy.cta.body}</p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <p className="font-body-md text-body-md text-on-primary/85 mb-8 md:mb-10 leading-relaxed">{copy.cta.body}</p>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
               <Link
                 to="/contact"
                 className="btn-premium-hover inline-flex w-full sm:w-auto justify-center bg-secondary text-on-secondary hover:bg-gold-soft px-10 py-4 font-label-caps text-label-caps uppercase tracking-widest shadow-lg transition-all rounded-sm"

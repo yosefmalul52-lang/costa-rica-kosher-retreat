@@ -6,8 +6,12 @@
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Montserrat", sans-serif;
   --font-script: "Tangerine", "Mea Culpa", cursive;
+
+  --container-max: 1400px;
+  --spacing-margin-desktop: 5rem;
+  --spacing-gutter: 2rem;
   
-  /* Primary brand and background colors requested */
+    /* Primary brand and background colors requested */
   --color-bg-main: #FDFBF8;
   --color-bg-soft: #F7F4F2;
   --color-bg-aqua: #DFF0F1;
@@ -164,6 +168,60 @@ html {
 
 body {
   overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Mobile typography & layout clarity */
+@media (max-width: 767px) {
+  html {
+    scroll-padding-top: 4.25rem;
+  }
+
+  .text-headline-xl {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .text-headline-lg {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .text-headline-md {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  .text-headline-sm {
+    font-size: 1.2rem;
+    line-height: 1.35;
+  }
+
+  .text-body-lg {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .text-display-script {
+    font-size: clamp(2.4rem, 11vw, 3.1rem);
+  }
+
+  .text-display-script-sm {
+    font-size: clamp(1.65rem, 7vw, 2rem);
+  }
+
+  /* Prefer readable tap targets without oversized desktop gaps */
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@supports (padding: env(safe-area-inset-top)) {
+  #top-nav {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
 }
 
 .horizontal-scroll-container {

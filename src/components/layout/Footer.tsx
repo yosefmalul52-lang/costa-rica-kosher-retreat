@@ -5,6 +5,10 @@ import { BRAND_LOGO_LIGHT, BRAND_NAME } from "../../content/brand";
 
 const FOOTER_LINKS = [
   { to: "/", labelKey: "home" as const, end: true },
+  { to: "/holidays", labelKey: "holidays" as const },
+  { to: "/pesach", labelKey: "pesach" as const },
+  { to: "/sukkot", labelKey: "sukkot" as const },
+  { to: "/year-round", labelKey: "yearRound" as const },
   { to: "/rooms", labelKey: "rooms" as const },
   { to: "/kosher-jewish-life", labelKey: "kosherJewishLife" as const },
   { to: "/costa-rica-guide", labelKey: "costaRicaGuide" as const },
@@ -16,22 +20,22 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-teal-footer text-white/90 w-full py-20 px-4 md:px-margin-desktop border-t border-border-custom/25">
+    <footer className="bg-teal-footer text-white/90 w-full py-14 md:py-20 px-4 md:px-margin-desktop border-t border-border-custom/25">
       <FadeUp>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-gutter max-w-container-max mx-auto mb-10 md:mb-16">
           <div className="col-span-1 md:col-span-2">
             <img
               src={BRAND_LOGO_LIGHT}
               alt={BRAND_NAME}
               width={880}
               height={272}
-              className="h-20 w-auto max-w-[360px] object-contain object-left mb-5"
+              className="h-14 sm:h-20 w-auto max-w-[min(100%,280px)] sm:max-w-[360px] object-contain object-left mb-4 sm:mb-5"
               decoding="async"
             />
             <p className="font-body-md text-sm text-main-bg/80 max-w-sm mb-6 leading-relaxed">
               {t.footer.description}
             </p>
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex gap-3 sm:gap-4 flex-wrap">
               {t.footer.badges.map((badge) => (
                 <span
                   key={badge}
@@ -46,15 +50,15 @@ export default function Footer() {
               <label className="font-label-caps text-[10px] uppercase tracking-wider block mb-2 text-gold-soft">
                 {t.footer.newsletterLabel}
               </label>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   placeholder={t.footer.emailPlaceholder}
-                  className="flex-1 bg-white text-text-main placeholder:text-text-muted/60 px-4 py-2.5 text-xs rounded-sm focus:outline-none input-ltr"
+                  className="flex-1 min-w-0 bg-white text-text-main placeholder:text-text-muted/60 px-4 py-3 text-xs rounded-sm focus:outline-none input-ltr"
                 />
                 <button
                   type="button"
-                  className="btn-premium-hover bg-teal-ocean text-white hover:bg-teal-dark-hover px-4 py-2.5 text-xs font-label-caps uppercase tracking-wider rounded-sm transition-colors cursor-pointer"
+                  className="btn-premium-hover bg-teal-ocean text-white hover:bg-teal-dark-hover px-4 py-3 text-xs font-label-caps uppercase tracking-wider rounded-sm transition-colors cursor-pointer shrink-0"
                 >
                   {t.footer.subscribe}
                 </button>

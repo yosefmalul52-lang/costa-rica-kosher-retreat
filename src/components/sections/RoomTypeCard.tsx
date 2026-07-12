@@ -52,7 +52,7 @@ export default function RoomTypeCard({
   const textSide = reversed ? "start" : "end";
 
   return (
-    <article className="flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-14 xl:gap-16">
+    <article className="flex flex-col lg:flex-row lg:items-center gap-6 sm:gap-10 lg:gap-14 xl:gap-16">
       <SplitImage
         side={imageSide}
         eager={eager}
@@ -82,7 +82,7 @@ export default function RoomTypeCard({
           <span className="inline-block font-label-caps text-[10px] uppercase tracking-[0.22em] text-secondary border border-secondary/40 px-3 py-1.5 mb-5 rounded-sm">
             {badge}
           </span>
-          <h2 className="font-headline-lg text-3xl md:text-4xl text-primary mb-3 leading-tight">{name}</h2>
+          <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-4xl text-primary mb-3 leading-tight">{name}</h2>
           <p className="font-label-caps text-[10px] uppercase tracking-wider text-secondary mb-5">
             {availabilityLabel}
           </p>
@@ -113,7 +113,7 @@ export default function RoomTypeCard({
 
           <Link
             to="/contact"
-            className="btn-premium-hover inline-flex justify-center bg-primary text-on-primary hover:bg-secondary py-3.5 px-8 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
+            className="btn-premium-hover w-full sm:w-auto inline-flex justify-center bg-primary text-on-primary hover:bg-secondary py-3.5 px-8 font-label-caps text-xs uppercase tracking-widest rounded-sm transition-colors"
           >
             {ctaLabel}
           </Link>

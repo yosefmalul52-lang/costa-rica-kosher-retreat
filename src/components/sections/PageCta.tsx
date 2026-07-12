@@ -11,10 +11,10 @@ type PageCtaProps = {
 
 export default function PageCta({ title, body, buttonLabel, buttonTo = "/contact", onButtonClick }: PageCtaProps) {
   const buttonClass =
-    "btn-premium-hover inline-flex bg-primary text-on-primary hover:bg-secondary px-10 py-4 font-label-caps text-label-caps uppercase tracking-widest shadow-lg transition-all rounded-sm cursor-pointer";
+    "btn-premium-hover inline-flex w-full sm:w-auto justify-center bg-primary text-on-primary hover:bg-secondary px-10 py-4 font-label-caps text-label-caps uppercase tracking-widest shadow-lg transition-all rounded-sm cursor-pointer";
 
   return (
-    <section className="py-20 px-6 md:px-margin-desktop bg-surface-container-low">
+    <section className="py-14 md:py-20 px-5 sm:px-6 md:px-margin-desktop bg-surface-container-low">
       <div className="max-w-3xl mx-auto text-center">
         <SoftScale>
           <h2 className="font-headline-md text-headline-md text-primary mb-4">{title}</h2>

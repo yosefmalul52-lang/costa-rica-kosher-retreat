@@ -50,12 +50,12 @@ export default function ContactPage() {
           aria-hidden
         />
 
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-6 md:px-margin-desktop pb-14 pt-32 md:py-20 text-center">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop pb-12 sm:pb-14 pt-28 sm:pt-32 md:py-20 text-center">
           <motion.span
             initial={heroInitial({ opacity: 0, y: 28 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.15 }}
-            className="font-label-caps text-label-caps text-secondary-fixed mb-4 block tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-label-caps text-[11px] sm:text-label-caps text-secondary-fixed mb-3 sm:mb-4 block tracking-[0.22em] sm:tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.eyebrow}
           </motion.span>
@@ -63,7 +63,7 @@ export default function ContactPage() {
             initial={heroInitial({ opacity: 0, y: 32, filter: "blur(6px)" })}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.95, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.3 }}
-            className="font-headline-lg text-4xl md:text-headline-lg text-on-primary mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-headline-lg text-[1.75rem] sm:text-4xl md:text-headline-lg text-on-primary mb-4 sm:mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.title}
           </motion.h1>
@@ -79,7 +79,7 @@ export default function ContactPage() {
       </section>
 
       {/* 2. Atmosphere image + form */}
-      <section className="py-16 md:py-24 px-6 md:px-margin-desktop max-w-container-max mx-auto">
+      <section className="py-12 md:py-24 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           <div className="lg:col-span-5 space-y-8">
             <SoftScale eager className="hidden lg:block">

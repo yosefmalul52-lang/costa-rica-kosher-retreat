@@ -67,12 +67,12 @@ export default function CostaRicaGuidePage() {
           aria-hidden
         />
 
-        <div className="relative z-10 w-full max-w-container-max mx-auto px-6 md:px-margin-desktop pb-14 pt-32 md:py-20 text-center">
+        <div className="relative z-10 w-full max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop pb-12 sm:pb-14 pt-28 sm:pt-32 md:py-20 text-center">
           <motion.span
             initial={heroInitial({ opacity: 0, y: 28 })}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.15 }}
-            className="font-label-caps text-label-caps text-secondary-fixed mb-4 block tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-label-caps text-[11px] sm:text-label-caps text-secondary-fixed mb-3 sm:mb-4 block tracking-[0.22em] sm:tracking-[0.28em] uppercase [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.eyebrow}
           </motion.span>
@@ -80,7 +80,7 @@ export default function CostaRicaGuidePage() {
             initial={heroInitial({ opacity: 0, y: 32, filter: "blur(6px)" })}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.95, ease: LUXURY_EASE, delay: reduceMotion ? 0 : 0.3 }}
-            className="font-headline-lg text-4xl md:text-headline-lg text-on-primary mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
+            className="font-headline-lg text-[1.75rem] sm:text-4xl md:text-headline-lg text-on-primary mb-4 sm:mb-5 max-w-3xl mx-auto leading-tight [text-shadow:0_4px_24px_rgba(0,0,0,0.45)]"
           >
             {copy.hero.title}
           </motion.h1>
@@ -96,8 +96,8 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 2. Short intro — image + text */}
-      <section className="py-20 md:py-28 px-6 md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <section className="py-14 md:py-28 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           <SplitImage side="start" eager className="w-full lg:w-[48%]">
             <ImageReveal eager className="aspect-[4/5] md:aspect-[5/6] rounded-sm shadow-sm border border-surface-container-high">
               <OptimizedImage
@@ -110,7 +110,7 @@ export default function CostaRicaGuidePage() {
             </ImageReveal>
           </SplitImage>
           <SplitText side="end" eager className="w-full lg:w-[52%]">
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+            <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
               {copy.intro.title}
             </h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
@@ -121,8 +121,8 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 3. 10 Cartago attractions — visual grid */}
-      <section className="bg-surface-container py-20 md:py-28">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+      <section className="bg-surface-container py-14 md:py-28">
+        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
             <FadeUp>
               <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
@@ -130,7 +130,7 @@ export default function CostaRicaGuidePage() {
               </span>
             </FadeUp>
             <FadeUp delay={0.06}>
-              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+              <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
                 {copy.attractions.title}
               </h2>
             </FadeUp>
@@ -185,8 +185,8 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 4. Routes & tours — image left, text right */}
-      <section className="py-20 md:py-28 px-6 md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <section className="py-14 md:py-28 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           <SplitImage side="start" className="w-full lg:w-1/2">
             <ImageReveal className="aspect-[16/11] md:aspect-[5/4] rounded-sm shadow-sm border border-surface-container-high">
               <OptimizedImage
@@ -202,7 +202,7 @@ export default function CostaRicaGuidePage() {
             <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
               {copy.routes.eyebrow}
             </span>
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+            <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
               {copy.routes.title}
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed mb-8">
@@ -221,9 +221,9 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 5. Nature — image right, text left */}
-      <section className="bg-primary text-on-primary py-20 md:py-28">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+      <section className="bg-primary text-on-primary py-14 md:py-28">
+        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-8 md:gap-12 lg:gap-16">
             <SplitImage side="end" className="w-full lg:w-1/2">
               <ImageReveal className="aspect-[16/11] md:aspect-[5/4] rounded-sm overflow-hidden border border-white/10">
                 <OptimizedImage
@@ -239,7 +239,7 @@ export default function CostaRicaGuidePage() {
               <span className="font-label-caps text-label-caps text-secondary-fixed mb-3 block uppercase tracking-widest">
                 {copy.nature.eyebrow}
               </span>
-              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-on-primary mb-5 leading-tight">
+              <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-on-primary mb-5 leading-tight">
                 {copy.nature.title}
               </h2>
               <p className="font-body-lg text-body-lg text-on-primary/85 leading-relaxed">
@@ -251,8 +251,8 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 6. Families — image left, text right */}
-      <section className="py-20 md:py-28 px-6 md:px-margin-desktop max-w-container-max mx-auto">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <section className="py-14 md:py-28 px-5 sm:px-6 md:px-margin-desktop max-w-container-max mx-auto">
+        <div className="flex flex-col lg:flex-row items-center gap-8 md:gap-12 lg:gap-16">
           <SplitImage side="start" className="w-full lg:w-[48%]">
             <ImageReveal className="aspect-[4/5] md:aspect-[5/6] rounded-sm shadow-sm border border-surface-container-high">
               <OptimizedImage
@@ -268,7 +268,7 @@ export default function CostaRicaGuidePage() {
             <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
               {copy.families.eyebrow}
             </span>
-            <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+            <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
               {copy.families.title}
             </h2>
             <p className="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
@@ -279,8 +279,8 @@ export default function CostaRicaGuidePage() {
       </section>
 
       {/* 7. Practical info before arrival */}
-      <section className="bg-surface-container py-20 md:py-28">
-        <div className="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+      <section className="bg-surface-container py-14 md:py-28">
+        <div className="max-w-container-max mx-auto px-5 sm:px-6 md:px-margin-desktop">
           <div className="text-center max-w-2xl mx-auto mb-12 md:mb-14">
             <FadeUp>
               <span className="font-label-caps text-label-caps text-secondary mb-3 block uppercase tracking-widest">
@@ -288,7 +288,7 @@ export default function CostaRicaGuidePage() {
               </span>
             </FadeUp>
             <FadeUp delay={0.06}>
-              <h2 className="font-headline-lg text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
+              <h2 className="font-headline-lg text-[1.65rem] sm:text-3xl md:text-headline-lg text-primary mb-5 leading-tight">
                 {copy.practical.title}
               </h2>
             </FadeUp>
@@ -302,7 +302,7 @@ export default function CostaRicaGuidePage() {
           <StaggerGroup stagger={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             {copy.practical.items.map((item) => (
               <StaggerItem key={item.title}>
-                <article className="bg-surface border border-surface-container-high p-8 rounded-sm shadow-sm h-full">
+                <article className="bg-surface border border-surface-container-high p-5 sm:p-8 rounded-sm shadow-sm h-full">
                   <h3 className="font-headline-sm text-headline-sm text-primary mb-3">{item.title}</h3>
                   <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">{item.body}</p>
                 </article>

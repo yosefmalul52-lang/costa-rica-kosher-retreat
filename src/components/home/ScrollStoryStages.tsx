@@ -96,7 +96,7 @@ function StickyStackCard({
     >
       <motion.article
         style={{ scale, opacity, y, boxShadow }}
-        className={`bg-surface border border-secondary/35 rounded-sm p-7 md:p-9 ${accentBorderClass}`}
+        className={`bg-surface border border-secondary/35 rounded-sm p-5 sm:p-7 md:p-9 ${accentBorderClass}`}
       >
         <StageContent stage={stage} accentBorderClass={accentBorderClass} />
       </motion.article>
@@ -133,7 +133,7 @@ export default function ScrollStoryStages({ stages, accentBorderClass }: ScrollS
         {stages.map((stage, index) => (
           <FadeUp key={stage.label} delay={index * 0.06}>
             <article
-              className={`bg-surface border border-secondary/35 rounded-sm shadow-md p-7 md:p-9 ${accentBorderClass}`}
+              className={`bg-surface border border-secondary/35 rounded-sm shadow-md p-5 sm:p-7 md:p-9 ${accentBorderClass}`}
             >
               <StageContent stage={stage} accentBorderClass={accentBorderClass} />
             </article>
