@@ -9,6 +9,7 @@ interface OptimizedImageProps {
   sizes?: string;
   width?: number;
   height?: number;
+  /** Heroes / LCP: eager load + high fetch priority (Vite has no Next.js Image optimizer). */
   priority?: boolean;
   loading?: "eager" | "lazy";
   decoding?: "sync" | "async" | "auto";
@@ -17,6 +18,11 @@ interface OptimizedImageProps {
   onClick?: React.MouseEventHandler<HTMLImageElement>;
 }
 
+/**
+ * Site image primitive. Local `/public` assets are served as-is at full file quality
+ * (this project is Vite, not Next.js — there is no runtime image recompression).
+ * Remote Google URLs are rewritten to request the maximum available width.
+ */
 export default function OptimizedImage({
   src,
   srcSet,

@@ -1,12 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  Map,
-  UsersRound,
-  UtensilsCrossed,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import OptimizedImage from "../components/OptimizedImage";
 import {
@@ -25,16 +18,20 @@ import { LUXURY_EASE, usePremiumMotion } from "../lib/motionPresets";
 const PESACH_BASE = "/images/pesach";
 
 const HERO_IMAGE = {
-  src: `${PESACH_BASE}/pesach-hero-resort.webp`,
-  altEn: "Luxury Passover resort in Costa Rica",
-  altHe: "ריזורט יוקרתי לפסח בקוסטה ריקה",
+  src: `${PESACH_BASE}/pesach-hero-villa.webp`,
+  altEn: "Luxury Passover villa with infinity pool overlooking Costa Rica at sunset",
+  altHe: "וילה יוקרתית לפסח עם בריכת אינפיניטי מול נוף קוסטה ריקה בשקיעה",
   objectPosition: "center center",
 };
 
 const RIBO_IMAGE = `${PESACH_BASE}/ishay-ribo-live.webp`;
 
-const HIGHLIGHT_ICONS = [UtensilsCrossed, BookOpen, UsersRound, Map] as const;
-const HIGHLIGHT_ICON_STROKE = 1.35;
+const HIGHLIGHT_ICONS = [
+  "/icons/pesach/kosher-dining.png",
+  "/icons/pesach/jewish-life.png",
+  "/icons/pesach/kids-teen-programs.png",
+  "/icons/pesach/costa-rica-excursions.png",
+] as const;
 
 const ACTIVITY_MEDIA: Record<
   string,
@@ -228,13 +225,13 @@ export default function PesachPage() {
                 {language === "he" ? (
                   <ArrowLeft
                     className="h-3.5 w-3.5 transition-transform duration-300 group-hover/cta:-translate-x-0.5"
-                    strokeWidth={HIGHLIGHT_ICON_STROKE}
+                    strokeWidth={1.35}
                     aria-hidden
                   />
                 ) : (
                   <ArrowRight
                     className="h-3.5 w-3.5 transition-transform duration-300 group-hover/cta:translate-x-0.5"
-                    strokeWidth={HIGHLIGHT_ICON_STROKE}
+                    strokeWidth={1.35}
                     aria-hidden
                   />
                 )}
@@ -250,7 +247,6 @@ export default function PesachPage() {
               ].join(" ")}
             >
               {copy.highlights.values.map((value, index) => {
-                const Icon = HIGHLIGHT_ICONS[index];
                 const isEndCol = index % 2 === 1;
                 const isBottomRow = index >= 2;
                 return (
@@ -263,10 +259,14 @@ export default function PesachPage() {
                       isBottomRow ? "sm:border-t sm:border-secondary/25" : "",
                     ].join(" ")}
                   >
-                    <Icon
-                      className="h-[1.35rem] w-[1.35rem] text-secondary mb-3.5 transition-all duration-300 ease-out group-hover:-translate-y-0.5 group-hover:text-secondary-fixed"
-                      strokeWidth={HIGHLIGHT_ICON_STROKE}
-                      aria-hidden
+                    <img
+                      src={HIGHLIGHT_ICONS[index]}
+                      alt=""
+                      aria-hidden="true"
+                      width={32}
+                      height={32}
+                      decoding="async"
+                      className="mb-3.5 block h-6 w-6 sm:h-8 sm:w-8 object-contain transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
                     />
                     <div
                       className="mb-3.5 h-px w-7 bg-secondary/45 transition-[width,background-color] duration-300 ease-out group-hover:w-9 group-hover:bg-secondary"

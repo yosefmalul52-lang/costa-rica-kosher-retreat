@@ -42,10 +42,16 @@ const CAROUSEL_IMAGE_SOURCES = [
   MISTY_MOUNTAIN_BALCONY_IMAGE,
 ] as const;
 
-/** Optimized web deliveries — originals kept as hero.mp4 / hero-mobile.mp4 / hero-poster.jpg */
-const HERO_VIDEO = "/videos/hero-web.mp4";
-const HERO_VIDEO_MOBILE = "/videos/hero-mobile-web.mp4";
-const HERO_POSTER = "/videos/hero-poster-web.webp";
+/** Option B balanced delivers — masters kept as hero.mp4 / hero-mobile.mp4 */
+const HERO_VIDEO = "/videos/hero-desktop-balanced.mp4";
+const HERO_VIDEO_MOBILE = "/videos/hero-mobile-balanced.mp4";
+const HERO_POSTER = "/videos/hero-poster.webp";
+const HERO_VIDEO_MQ = "(max-width: 640px)";
+
+function resolveHeroVideoSrc(): string {
+  if (typeof window === "undefined") return HERO_VIDEO;
+  return window.matchMedia(HERO_VIDEO_MQ).matches ? HERO_VIDEO_MOBILE : HERO_VIDEO;
+}
 
 /** Local WebP of the pre-optimization remote images (same visuals, no hotlinks). */
 const EXPERIENCE_IMAGE_URLS = [
@@ -93,10 +99,10 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
   const heroSectionRef = React.useRef<HTMLElement>(null);
   const heroVideoRef = React.useRef<HTMLVideoElement>(null);
   const { heroInitial, reduceMotion, carouselCard, staggerContainer } = usePremiumMotion();
-  const [heroVideoSrc, setHeroVideoSrc] = React.useState(HERO_VIDEO);
+  const [heroVideoSrc, setHeroVideoSrc] = React.useState(resolveHeroVideoSrc);
 
   React.useEffect(() => {
-    const mq = window.matchMedia("(max-width: 640px)");
+    const mq = window.matchMedia(HERO_VIDEO_MQ);
     const update = () => setHeroVideoSrc(mq.matches ? HERO_VIDEO_MOBILE : HERO_VIDEO);
     update();
     mq.addEventListener("change", update);
@@ -169,8 +175,8 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
             <img
               src={HERO_POSTER}
               alt={t.heroImageAlt}
-              width={1080}
-              height={1080}
+              width={1440}
+              height={1440}
               className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none [filter:brightness(0.78)_contrast(1.05)]"
               decoding="sync"
               fetchPriority="high"
@@ -396,7 +402,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                 image: {
                   src: "/images/holidays/sukkot-retreat.webp",
                   alt: t.pages.holidays.pathways.sukkot.imageAlt,
-                  objectPosition: "center center",
+                  objectPosition: "center 38%",
                 },
               }}
             />
@@ -561,6 +567,7 @@ export default function HomeView({ onStartPlanning }: HomeViewProps) {
                   sizes={DINING_IMAGE.sizes}
                   alt={t.dining.imageAlt}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  style={{ objectPosition: "center 62%" }}
                 />
               </ImageReveal>
             </SplitImage>

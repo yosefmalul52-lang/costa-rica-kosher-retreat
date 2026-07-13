@@ -51,7 +51,7 @@ export const pageSeo: Record<Language, Record<SeoPageKey, SeoEntry>> = {
       description:
         "A luxury Glatt kosher Pesach retreat in Costa Rica’s mountains—holiday dining, prayer support, family programs, excursions, and adult entertainment. Details confirmed during inquiry.",
       path: "/pesach",
-      ogImage: "/images/pesach/pesach-hero-resort.webp",
+      ogImage: "/images/pesach/pesach-hero-villa.webp",
     },
     sukkot: {
       title: `Sukkot Retreat in Costa Rica | ${BRAND_NAME}`,
@@ -129,7 +129,7 @@ export const pageSeo: Record<Language, Record<SeoPageKey, SeoEntry>> = {
       description:
         "ריטריט פסח כשר גלאט יוקרתי בהרי קוסטה ריקה — ארוחות חג, תמיכה בתפילה, תכניות משפחה, טיולים ובידור למבוגרים. הפרטים מאושרים בשיחת התאמה.",
       path: "/pesach",
-      ogImage: "/images/pesach/pesach-hero-resort.webp",
+      ogImage: "/images/pesach/pesach-hero-villa.webp",
     },
     sukkot: {
       title: `ריטריט סוכות בקוסטה ריקה | ${BRAND_NAME}`,

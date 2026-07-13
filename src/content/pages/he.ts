@@ -18,7 +18,7 @@ export const pagesHe = {
         includes: ["הגדרת מיטות קינג או תאומים", "עמדת כשרות בחדר", "מרפסת פרטית", "תאורה מותאמת לשבת"],
         idealFor: "זוגות וריטריטים עסקיים המחפשים יוקרה שקטה.",
         image: "/images/hotel-gallery/jungle-veranda-mountain-view.webp",
-        imageAlt: "ורנדה מעץ עם נוף לעמקי ג'ונגל ירוקים ואופק הררי",
+        imageAlt: "מרפסת בקתה מעץ עם נוף לעמקי ג'ונגל ירוקים ואופק הררי",
         imageObjectPosition: "center center",
       },
       {
@@ -29,7 +29,7 @@ export const pagesHe = {
         includes: ["אזורי שינה מרובים", "סלון משפחתי", "אחסון מוגבר", "גישה בטוחה למרפסת"],
         idealFor: "משפחות עם ילדים שרוצות נוחות בלי לוותר על סטנדרטים.",
         image: "/images/hotel-gallery/luxury-villa-garden-pathway.webp",
-        imageAlt: "שביל אבן בין וילות יוקרה בגינה טרופית בהרים",
+        imageAlt: "בקתות משפחה לבנות עם מרפסות מקושתות בגינה טרופית בהרים",
         imageObjectPosition: "center center",
       },
       {
@@ -39,8 +39,8 @@ export const pagesHe = {
         description: "וילה פרטית מוקפת יער עננים ואופקים וולקניים — מרווחת, שלווה ואידיאלית לאירוח רב-דורי.",
         includes: ["סלון גדול", "מרפסת אוכל חיצונית", "מטבחון כשר", "קו קונסיירז' ייעודי"],
         idealFor: "קבוצות ומשפחות מורחבות החוגגות אירועים משמעותיים.",
-        image: "/images/hotel-gallery/tropical-resort-arrival-driveway.webp",
-        imageAlt: "שביל הגעה לריזורט טרופי בין גני דקלים ירוקים",
+        image: "/images/pesach/pesach-hero-villa.webp",
+        imageAlt: "וילת יוקרה עם מרפסת ובריכת אינפיניטי מול נוף הרים",
         imageObjectPosition: "center center",
       },
       {
@@ -50,9 +50,9 @@ export const pagesHe = {
         description: "המגורים המבודדים ביותר באחוזה — לחופשים שמבקשים פרטיות מלאה, שירות מותאם אישית ובריחה מהירה מהרים.",
         includes: ["שטחים פרטיים מלאים", "תזמון ארוחות מותאם", "תכנון טיולים בעדיפות", "הכנת שבת מוגברת"],
         idealFor: "שהיות אולטרה-פרטיות, ריטריטים מנהליים ושבועות משפחתיים בלעדיים.",
-        image: "/images/hotel-gallery/palm-canopy-entrance-driveway.webp",
-        imageAlt: "שביל כניסה פרטי מוקף דקלים בריטריט יוקרתי בהרים",
-        imageObjectPosition: "center 40%",
+        image: "/images/hotel-gallery/private-villa-garden-entrance.webp",
+        imageAlt: "כניסה מבודדת לוילה פרטית בין גנים טרופיים בהרים",
+        imageObjectPosition: "center center",
       },
     ],
     cta: {

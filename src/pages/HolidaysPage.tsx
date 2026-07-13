@@ -89,7 +89,7 @@ export default function HolidaysPage() {
               image: {
                 src: "/images/holidays/sukkot-retreat.webp",
                 alt: copy.pathways.sukkot.imageAlt,
-                objectPosition: "center center",
+                objectPosition: "center 38%",
               },
             }}
           />

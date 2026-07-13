@@ -18,7 +18,7 @@ export const pagesEn = {
         includes: ["King or twin bedding configuration", "Kosher refreshment station", "Private terrace", "Shabbat-friendly lighting"],
         idealFor: "Couples and executive retreats seeking understated luxury.",
         image: "/images/hotel-gallery/jungle-veranda-mountain-view.webp",
-        imageAlt: "Wooden veranda overlooking lush jungle valleys and mountain horizons",
+        imageAlt: "Wooden cabin veranda overlooking lush jungle valleys and mountain horizons",
         imageObjectPosition: "center center",
       },
       {
@@ -29,7 +29,7 @@ export const pagesEn = {
         includes: ["Multiple sleeping areas", "Family lounge", "Enhanced storage", "Child-safe terrace access"],
         idealFor: "Families with children who want comfort without compromising standards.",
         image: "/images/hotel-gallery/luxury-villa-garden-pathway.webp",
-        imageAlt: "Stone pathway between luxury villas in a tropical mountain garden",
+        imageAlt: "White family cabins with arched terraces in a tropical mountain garden",
         imageObjectPosition: "center center",
       },
       {
@@ -39,8 +39,8 @@ export const pagesEn = {
         description: "A private villa framed by cloud forest and volcanic horizons—spacious, serene, and ideal for multi-generational gatherings.",
         includes: ["Expansive great room", "Outdoor dining terrace", "Kosher kitchenette", "Dedicated concierge line"],
         idealFor: "Groups and extended families celebrating milestones together.",
-        image: "/images/hotel-gallery/tropical-resort-arrival-driveway.webp",
-        imageAlt: "Tropical resort arrival driveway through lush palm gardens",
+        image: "/images/pesach/pesach-hero-villa.webp",
+        imageAlt: "Luxury mountain villa with terrace and infinity pool overlooking the valley",
         imageObjectPosition: "center center",
       },
       {
@@ -50,9 +50,9 @@ export const pagesEn = {
         description: "The estate's most secluded residence—reserved for guests who desire complete privacy, bespoke service, and an unhurried mountain escape.",
         includes: ["Full private grounds", "Personalized meal scheduling", "Priority excursion planning", "Enhanced Shabbat setup"],
         idealFor: "Ultra-private stays, leadership retreats, and exclusive family weeks.",
-        image: "/images/hotel-gallery/palm-canopy-entrance-driveway.webp",
-        imageAlt: "Private palm-lined entrance driveway at a luxury mountain retreat",
-        imageObjectPosition: "center 40%",
+        image: "/images/hotel-gallery/private-villa-garden-entrance.webp",
+        imageAlt: "Secluded private villa entrance nestled in tropical highland gardens",
+        imageObjectPosition: "center center",
       },
     ],
     cta: {
